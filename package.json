@@ -13,25 +13,35 @@
   "dependencies": {
     "apollo-boost": "^0.4.4",
     "apollo-server-express": "^2.9.3",
+    "babel-loader": "^8.0.6",
+    "babel-minify-webpack-plugin": "^0.3.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "graphql": "^14.5.4",
-    "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.12.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "sequelize": "^5.18.2",
-    "validator": "^11.1.0"
+    "validator": "^11.1.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
     "merge-graphql-schemas": "^1.7.0",
     "nodemon": "^1.19.2",
-    "sequelize-cli": "^5.5.1",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "sequelize-cli": "^5.5.1"
   }
 }

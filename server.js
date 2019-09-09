@@ -1,10 +1,9 @@
 import express from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './graphql/graphql-types';
 import resolvers from './graphql/graphql-resolvers';
 import db from './models';
 
-const logger = { log: e => console.error(e.stavk) };
 
 const server = new ApolloServer({
     typeDefs,
@@ -19,11 +18,10 @@ const server = new ApolloServer({
 const app = express();
 server.applyMiddleware({ app });
 
-app.use(express.static("app/public"));
+app.use(express.static("dist/public"));
 
 const eraseDatabaseOnSync = true;
 db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
-
     app.listen({ port: 4000 }, () =>
         console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
     );
