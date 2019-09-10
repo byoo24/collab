@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
-    "watch": "nodemon --exec babel-node server.js"
+    "server": "npx babel-node server.js",
+    "server:watch": "nodemon --exec babel-node server.js",
+    "postinstall": "webpack --config webpack.prod.js",
+    "start": "webpack --watch ---open --config webpack.dev.js"
   },
   "keywords": [],
   "author": "",
@@ -13,12 +16,15 @@
   "dependencies": {
     "apollo-boost": "^0.4.4",
     "apollo-server-express": "^2.9.3",
+    "axios": "^0.19.0",
     "babel-loader": "^8.0.6",
     "babel-minify-webpack-plugin": "^0.3.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "graphql": "^14.5.4",
+    "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.12.1",
@@ -28,6 +34,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.18.2",
     "validator": "^11.1.0",

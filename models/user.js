@@ -26,9 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true,
     });
 
-    // User.associate = (models) => {
-    //     User.belongsTo(models.author);
-    // };
+    User.associate = (models) => {
+        User.hasMany(models.board);
+    };
 
     return User;
 }
