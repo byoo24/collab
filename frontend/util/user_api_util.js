@@ -2,22 +2,24 @@ import axios from 'axios';
 
 
 
-export const getUser = (userId) => {
+export const getUserInfo = (userId) => {
     // const { name, description, userId } = input;
 
     return axios({
         url: '/graphql',
-        method: 'get',
+        method: 'post',
         data: {
             query: `
-                user(id:"${userId}"){
-                    id,
-                    username,
-                    email,
-                    boards {
+                query {
+                    user(id:"${userId}"){
                         id,
-                        name,
-                        description
+                        username,
+                        email,
+                        boards {
+                            id,
+                            name,
+                            description
+                        }
                     }
                 }`
         }

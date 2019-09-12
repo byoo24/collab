@@ -9,7 +9,7 @@ export default `
         lists: [List!]!
     }
     type Query {
-        boards: [Board!]!
+        boards(userId: ID!): [Board!]!
         board(id: ID!): Board
     }
     type Mutation {

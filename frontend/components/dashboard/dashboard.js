@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { createBoard } from '../../actions/board_actions';
+import { getUserInfo } from '../../actions/user_actions';
 
 const Dashboard = (props) => {
     const [count, setCount] = useState(0);
@@ -20,6 +21,7 @@ const Dashboard = (props) => {
 
     return (
         <div>
+            <button className="getUser" onClick={() => props.getUserInfo(props.currentUserId)}>GET USER INFO</button>
             <button className="board" onClick={handleCreateBoard}>Create Board</button>
             <ul>
                 { Object.values(props.boards).map(board => {
@@ -49,6 +51,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
+        getUserInfo: (userId) => dispatch(getUserInfo(userId)),
         createBoard: (board) => dispatch(createBoard(board))
     }
 }

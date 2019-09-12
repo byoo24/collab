@@ -1,6 +1,7 @@
 export default {
     Board: {
         user: (parent, args, context, info) => parent.getUser(),
+        lists: (parent, args, context, info) => parent.getLists()
     },
     Query: {
         boards: (parent, args, { db }, info) => db.board.findAll({where: { userId: args.userId } }),
