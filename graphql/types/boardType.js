@@ -3,7 +3,8 @@ export default `
     type Board {
         id: ID!
         name: String!
-        userId: ID
+        description: String
+        userId: ID!
         user: User!
         lists: [List!]!
     }
@@ -12,7 +13,7 @@ export default `
         board(id: ID!): Board
     }
     type Mutation {
-        createBoard(name: String, userId: ID): Board!
-        updateBoard(id: ID!, name: String!): Board!
+        createBoard(name: String!, description: String, userId: ID!): Board!
+        updateBoard(id: ID!, name: String, description: String): Board!
     }
 `

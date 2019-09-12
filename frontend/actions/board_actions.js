@@ -15,7 +15,7 @@ export const receiveBoard = (board) => {
 export const createBoard = input => dispatch =>(
     APIUtil.createBoard(input).then(board => {
         const { data, errors } = board.data;
-
+        
         if (errors) {
             console.log(errors);
         } else {

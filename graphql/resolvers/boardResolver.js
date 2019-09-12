@@ -1,25 +1,33 @@
 export default {
+    Board: {
+        user: (parent, args, context, info) => parent.getUser(),
+    },
     Query: {
-        boards: (parent, args, { db }, info) => db.board.findAll(),
-        board: (parent, args, { db }, info) => db.board.findByPk(id)
+        boards: (parent, args, { db }, info) => db.board.findAll({where: { userId: args.userId } }),
+        board: (parent, args, { db }, info) => db.board.findByPk(args.id)
     },
     Mutation: {
         createBoard: (parent, args, context, info) => {
             const { db } = context;
-            const { name, userId } = args;
+            const { name, description, userId } = args;
 
             console.log("=============");
             console.log(args);
             console.log("=============");
 
             return db.board.create({
-                name: name,
-                userId: userId
+                name,
+                description,
+                userId
             });
+
         },
         updateBoard: (parent, args, context, info) => {
             const { db } = context;
-            const { id, name } = args;
+            const { id, name, description } = args;
+
+            const board = db.board.findByPk(id);
+
 
             db.board.update({
                 name: name

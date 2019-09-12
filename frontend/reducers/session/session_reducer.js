@@ -1,15 +1,17 @@
-import { RECEIVE_SIGNUP } from '../../actions/session_actions';
+import { 
+    RECEIVE_SESSION,
+    SESSION_LOGOUT
+} from '../../actions/session_actions';
 
-const _nullUser = {
-    currentUser: null
-}
 
-const sessionReducer = (state = _nullUser, action) => {
+const sessionReducer = (state = {}, action) => {
     Object.freeze(state);
 
     switch(action.type) {
-        case RECEIVE_SIGNUP:
-            return Object.assign({}, state, {currentUser: action.user.id});
+        case RECEIVE_SESSION:
+            return Object.assign({}, state, {currentUser: action.user});
+        case SESSION_LOGOUT:
+            return {};
         default:
             return state;
     }

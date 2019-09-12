@@ -1,29 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signup } from '../../actions/session_actions';
+import { logout } from '../../actions/session_actions';
 
 const Home = (props) => {
-    const [userInfo, setUserInfo] = useState({
-        username: 'demouser',
-        email: 'demouser@gmail.com',
-        password: 'password123',
-        password2: 'password123'
-    });
 
-    const [loginData, setLoginData] = useState({
-        username: 'demouser',
-        password: 'password123'
-    });
-
-    const handleSignUp = () => {
-        props.signup(userInfo);
+    const handleLogout = () => {
+        props.logout();
     }
 
     
     return (
         <div id="main">
-            <button className="signup" onClick={handleSignUp}>Sign Up</button>
-            <button className="login">Login</button>
+            <NavLink to="/signup" activeClassName="selected">Signup</NavLink>
+            <NavLink to="/login" activeClassName="selected">Login</NavLink>
+            <button className="logout" onClick={handleLogout}>Logout</button>
         </div>
     )
 }
@@ -31,7 +22,7 @@ const Home = (props) => {
 
 const mdp = (dispatch) => {
     return {
-        signup: (user) => dispatch(signup(user))
+        logout: () => dispatch(logout())
     }
 }
 

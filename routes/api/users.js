@@ -7,17 +7,15 @@ import validateLoginInput from '../../validation/login';
 
 
 
-
-
 export default (app, db) => {
-    app.post('/api/users/signup', (req, res) => {
+    app.post('/api/v1/signup', (req, res) => {
         const { errors, isValid } = validateRegisterInput(req.body);
 
         if (!isValid) {
             return res.status(400).json(errors);
         }
 
-        db.user.findOne({ username: req.body.username }).then(user => {
+        db.user.findOne({ where: { username: req.body.username } }).then(user => {
             if (user) {
                 errors.username = "User already exists.";
                 return res.status(400).json(errors);
@@ -47,6 +45,45 @@ export default (app, db) => {
                 })
             }
         })
+    });
+
+
+
+    app.post('/api/v1/login', (req, res) => {
+        const { errors, isValid } = validateLoginInput(req.body);
+
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
+
+        const username = req.body.username;
+        const password = req.body.password;
+
+        db.user.findOne({ username })
+               .then(user => {
+                   if (!user) {
+                       errors.username = "Incorrect username or password";
+                       return res.status(400).json(errors);
+                   }
+
+                   bcrypt.compare(password, user.password)
+                         .then(isMatch => {
+                             if (isMatch) {
+                                 const payload = {id: user.id, username: user.username, email: user.email};
+
+                                 jwt.sign(payload, keys.secretOrKey, {expiresIn: 7200}, (err, token) => {
+                                     if(err) throw err;
+
+                                     res.json({
+                                         token: 'Bearer ' + token
+                                     })
+                                 })
+                             } else {
+                                 errors.password = "Incorrect username or password";
+                                 return res.status(400).json(errors);
+                             }
+                         })
+               })
     })
 }
 

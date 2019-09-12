@@ -2,20 +2,22 @@ import axios from 'axios';
 
 
 
-export const createBoard = (input) => {
-    const { name, description, userId } = input;
+export const getUser = (userId) => {
+    // const { name, description, userId } = input;
 
     return axios({
         url: '/graphql',
-        method: 'post',
+        method: 'get',
         data: {
             query: `
-                mutation {
-                    createBoard(name:"${name}" description:"${description}" userId:"${userId}"){
+                user(id:"${userId}"){
+                    id,
+                    username,
+                    email,
+                    boards {
                         id,
                         name,
-                        description,
-                        userId
+                        description
                     }
                 }`
         }

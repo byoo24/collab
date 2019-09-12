@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
             limit: 60,
             allowNull: false
         },
+        description: {
+            type: DataTypes.STRING,
+            limit: 60,
+            defaultValue: ""
+        },
     },
     {
         freezeTableName: true,

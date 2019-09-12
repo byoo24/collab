@@ -13,6 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
+    localStorage.removeItem('jwtToken');
 
     if (localStorage.jwtToken) {
         setAuthToken(localStorage.jwtToken);
@@ -21,11 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let preloadedState = {
             session: {
-                currentUser: decodedUser.userId
+                currentUser: decodedUser
             }
         }
-
-        console.log(preloadedState);
 
         store = configureStore(preloadedState);
         const currentTime = Date.now() / 1000;
