@@ -7,9 +7,6 @@ export default `
         password: String!
         boards: [Board!]!
     }
-    type Token {
-        token: String
-    }
     type Query {
         users: [User!]!
         user(id: ID!): User

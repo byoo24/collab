@@ -20,9 +20,25 @@ export const createBoard = (input) => {
                 }`
         }
     });
-    // .then((result) => {
-    //     console.log(result.data);
-    // }).catch((err) => {
-    //     console.log(err);
-    // })
+}
+
+
+
+export const createList = (input) => {
+    const { name, boardId } = input;
+
+    return axios({
+        url: '/graphql',
+        method: 'post',
+        data: {
+            query: `
+                mutation {
+                    createList(name:"${name}" boardId:"${boardId}"){
+                        id,
+                        name,
+                        boardId
+                    }
+                }`
+        }
+    });
 }

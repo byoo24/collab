@@ -6,6 +6,7 @@ import Home from './static/home';
 import Signup from './static/signup';
 import Login from './static/login';
 import Dashboard from './dashboard/dashboard';
+import Board from './dashboard/board';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
             <AuthRoute exact path="/signup" component={Signup} />
             <AuthRoute exact path="/login" component={Login} />
             <ProtectedRoute path="/dashboard" component={Dashboard} />
+            <ProtectedRoute path="/board/:boardId" component={Board} />
         </Switch>
     )
 }

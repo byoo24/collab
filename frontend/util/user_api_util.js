@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 
-export const getUserInfo = (userId) => {
+export const getUserCollections = (userId) => {
     // const { name, description, userId } = input;
 
     return axios({

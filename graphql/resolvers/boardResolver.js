@@ -12,16 +12,11 @@ export default {
             const { db } = context;
             const { name, description, userId } = args;
 
-            console.log("=============");
-            console.log(args);
-            console.log("=============");
-
             return db.board.create({
                 name,
                 description,
                 userId
             });
-
         },
         updateBoard: (parent, args, context, info) => {
             const { db } = context;

@@ -13,3 +13,14 @@ export const isEmpty = (obj) => {
             return false;
     }
 }
+
+
+export const convertArrayToObjects = (array) => {
+    const result = {};
+
+    array.forEach(obj => {
+        result[obj.id] = obj;
+    });
+
+    return result;
+}

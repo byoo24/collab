@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.STRING,
-            limit: 60,
+            length: 60,
             allowNull: false
         },
-        description: DataTypes.STRING
+        description: DataTypes.TEXT
     },
     {
         freezeTableName: true,

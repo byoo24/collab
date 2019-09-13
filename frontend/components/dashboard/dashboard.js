@@ -1,36 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { createBoard } from '../../actions/board_actions';
-import { getUserInfo } from '../../actions/user_actions';
+import { getUserCollections } from '../../actions/user_actions';
+
+import Board from '../dashboard/board';
 
 const Dashboard = (props) => {
-    const [count, setCount] = useState(0);
+    const [boardName, setBoardName] = useState("");
+    const [boardDescription, setBoardDescription] = useState("");
 
-    const handleCreateBoard = () => {
+    const [countLists, setCountLists] = useState(0);
+
+
+    useEffect(() => {
+        props.getUserCollections(props.currentUserId);
+    }, []);
+
+
+    const handleCreateBoard = (e) => {
+        e.preventDefault();
+
         const boardInfo = {
-            name: `Board #${count}`,
-            description: "abc",
+            name: boardName,
+            description: boardDescription,
             userId: props.currentUserId
         }
         
         props.createBoard(boardInfo);
+    }
 
-        setCount(count + 1);
+    const handleCreateList = (boardId) => {
+        const listInfo = {
+            name: `List #${countLists}`,
+            boardId
+        }
+        props.createList(listInfo);
+
+        setCountLists(countLists + 1);
     }
 
     return (
         <div>
             <button className="getUser" onClick={() => props.getUserInfo(props.currentUserId)}>GET USER INFO</button>
             <button className="board" onClick={handleCreateBoard}>Create Board</button>
-            <ul>
+            <ul className="board_index">
                 { Object.values(props.boards).map(board => {
                     return (
-                        <li key={board.id}>
-                            { board.name }
-                        </li>
+                        <div>
+                            <Link key={board.id} to={`/board/${board.id}`}>
+                                {board.name}
+                            </Link>
+                        </div>
+
+                        // <li key={board.id}>
+                        //     { board.name }
+                        //     <button className="addList" onClick={() => handleCreateList(board.id)}>Add List</button>
+                        // </li>
                     )
                 }) }
+
+                <li className="board_item">
+                    <form className="add_board_item" onSubmit={(e) => handleCreateBoard(e)}>
+                        <input 
+                            type="text"
+                            placeholder="Add a title..."
+                            value={boardName}
+                            onChange={(e) => setBoardName(e.target.value)} />
+                        
+                        <input
+                            type="text"
+                            placeholder="Add a description..."
+                            value={boardDescription}
+                            onChange={(e) => setBoardDescription(e.target.value)} />
+
+                        <input type="submit" value="Add Board"/>
+                    </form>
+                </li>
             </ul>
 
         </div>
@@ -51,7 +98,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
-        getUserInfo: (userId) => dispatch(getUserInfo(userId)),
+        getUserCollections: (userId) => dispatch(getUserCollections(userId)),
         createBoard: (board) => dispatch(createBoard(board))
     }
 }
