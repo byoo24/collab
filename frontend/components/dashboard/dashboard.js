@@ -1,85 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import { CustomRoute } from '../../util/route_util';
 import { connect } from 'react-redux';
 
+import { getSessionData } from '../../actions/session_actions';
 import { createBoard } from '../../actions/board_actions';
-import { getUserCollections } from '../../actions/user_actions';
+import { createList } from '../../actions/list_actions';
 
-import Board from '../dashboard/board';
+
+import BoardIndex from './boards/boardIndex';
+import Board from './boards/board';
+
+
 
 const Dashboard = (props) => {
-    const [boardName, setBoardName] = useState("");
-    const [boardDescription, setBoardDescription] = useState("");
 
-    const [countLists, setCountLists] = useState(0);
+    // SETUP
+    const { match } = props;
 
 
+    // ComponentDidMount
     useEffect(() => {
-        props.getUserCollections(props.currentUserId);
+        props.getSessionData(props.currentUser.id);
     }, []);
 
-
-    const handleCreateBoard = (e) => {
-        e.preventDefault();
-
-        const boardInfo = {
-            name: boardName,
-            description: boardDescription,
-            userId: props.currentUserId
-        }
-        
-        props.createBoard(boardInfo);
-    }
-
-    const handleCreateList = (boardId) => {
-        const listInfo = {
-            name: `List #${countLists}`,
-            boardId
-        }
-        props.createList(listInfo);
-
-        setCountLists(countLists + 1);
-    }
-
+    
+     
     return (
         <div>
-            <button className="getUser" onClick={() => props.getUserInfo(props.currentUserId)}>GET USER INFO</button>
-            <button className="board" onClick={handleCreateBoard}>Create Board</button>
-            <ul className="board_index">
-                { Object.values(props.boards).map(board => {
-                    return (
-                        <div>
-                            <Link key={board.id} to={`/board/${board.id}`}>
-                                {board.name}
-                            </Link>
-                        </div>
+            <h1>Dashboard</h1>
 
-                        // <li key={board.id}>
-                        //     { board.name }
-                        //     <button className="addList" onClick={() => handleCreateList(board.id)}>Add List</button>
-                        // </li>
-                    )
-                }) }
-
-                <li className="board_item">
-                    <form className="add_board_item" onSubmit={(e) => handleCreateBoard(e)}>
-                        <input 
-                            type="text"
-                            placeholder="Add a title..."
-                            value={boardName}
-                            onChange={(e) => setBoardName(e.target.value)} />
-                        
-                        <input
-                            type="text"
-                            placeholder="Add a description..."
-                            value={boardDescription}
-                            onChange={(e) => setBoardDescription(e.target.value)} />
-
-                        <input type="submit" value="Add Board"/>
-                    </form>
-                </li>
-            </ul>
-
+            <Switch>
+                <CustomRoute exact path={match.url + "/"} 
+                        component={ BoardIndex } 
+                        currentUser={ props.currentUser }
+                        boards={ props.boards }
+                        createBoard={ props.createBoard }
+                />
+                <CustomRoute exact path={match.url + "/board/:boardId"} 
+                        component={ Board }
+                        board={props.board}
+                        lists={props.lists}
+                        createList={props.createList}
+                />
+            </Switch>
         </div>
     )
 }
@@ -87,19 +51,23 @@ const Dashboard = (props) => {
 
 
 
+const msp = (state, ownProps) => {
+    
+    // Personal Board Index
+    const currentUser = state.session || null;
+    const personalBoardIds = currentUser ? currentUser.personalBoardIds : null;
+    const boards = personalBoardIds ? personalBoardIds.map(boardId => state.boards[boardId]) : null;
 
-const msp = (state) => {
     return {
-        boards: state.boards,
-        currentUserId: state.session.currentUser.id
+        currentUser,
+        boards
     }
 }
 
-
 const mdp = (dispatch) => {
     return {
-        getUserCollections: (userId) => dispatch(getUserCollections(userId)),
-        createBoard: (board) => dispatch(createBoard(board))
+        getSessionData: (userId) => dispatch(getSessionData(userId)),
+        createBoard: (board) => dispatch(createBoard(board)),
     }
 }
 

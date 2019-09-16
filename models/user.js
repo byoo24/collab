@@ -1,9 +1,11 @@
+const uuid = require('uuid/v4');
+
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true
+            defaultValue: () => uuid()
         },
         username: {
             type: DataTypes.STRING,
@@ -20,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             length: 60,
             allowNull: false
+        },
+        personalBoardIds: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            defaultValue: []
         }
     },
     {

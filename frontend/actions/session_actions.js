@@ -1,13 +1,16 @@
 import * as APIUtil from '../util/session_api_util';
+import { convertArrayToObjects } from '../libs/helper_methods';
 import jwt_decode from 'jwt-decode';
 
 export const RECEIVE_SESSION = "RECEIVE_SESSION";
+export const RECEIVE_SESSION_DATA = "RECEIVE_SESSION_DATA";
 export const SESSION_LOGOUT = "SESSION_LOGOUT";
 export const SESSION_ERRORS = "SESSION_ERRORS";
 export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 
 
 export const receiveSession = (data) => {
+    
     return {
         type: RECEIVE_SESSION,
         user: data
@@ -15,9 +18,23 @@ export const receiveSession = (data) => {
 }
 
 
+export const receiveSessionData = ({user, boards, lists}) => {
+    boards = convertArrayToObjects(boards);
+    lists = convertArrayToObjects(lists);
+    
+    return {
+        type: RECEIVE_SESSION_DATA,
+        user,
+        boards,
+        lists
+    }
+}
+
+
 export const receiveLogout = () => ({
     type: SESSION_LOGOUT
 });
+
 
 
 export const sessionErrors = (errors) => ({
@@ -31,25 +48,22 @@ export const clearSessionErrors = () => ({
 })
 
 
-// export const signup = input => dispatch => (
-//     APIUtil.signup(input).then(user => {
-//         const { data, errors } = user.data;
-//         debugger
-//         if(errors) {
-//             console.log(errors);
-//         } else {
-//             dispatch(receiveSignup(data.signup));
-//         }
-//     })
-// );
 
+
+
+const setToken = (token) => {
+    localStorage.setItem('jwtToken', token);
+    APIUtil.setAuthToken(token);
+    return jwt_decode(token);
+}
 
 
 export const signup = input => dispatch => (
     APIUtil.signup(input).then(
         (user) => {
-            const { data } = user;
-            dispatch(receiveSession(data));
+            const { token } = user.data;
+            const decoded = setToken(token);
+            dispatch(receiveSession(decoded));
         }, 
         err => {
             const { data } = err.response;
@@ -88,3 +102,31 @@ export const logout = () => dispatch => {
     // Dispatch a logout action
     dispatch(receiveLogout());
 }
+
+
+
+export const getSessionData = userId => dispatch => (
+    APIUtil.getSessionData(userId).then(res => {
+        const { data, errors } = res.data;
+        
+        if (errors) {
+            console.log(errors);
+        } else {
+            const { user } = data;
+            const { boards } = user;
+            delete user.boards;
+
+            let lists = [];
+            boards.forEach(board => {
+                lists = lists.concat(board.lists);
+                delete board.lists;
+            });
+
+            dispatch(receiveSessionData({
+                user,
+                boards,
+                lists
+            }));
+        }
+    })
+)

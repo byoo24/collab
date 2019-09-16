@@ -1,15 +1,18 @@
+const uuid = require('uuid/v4');
+
+
 module.exports = (sequelize, DataTypes) => {
     const List = sequelize.define('list', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true
+            defaultValue: () => uuid()
         },
         name: {
             type: DataTypes.STRING,
             length: 60,
             allowNull: false
-        }
+        },
     },
     {
         freezeTableName: true,
@@ -17,9 +20,6 @@ module.exports = (sequelize, DataTypes) => {
 
     List.associate = (models) => {
         List.belongsTo(models.board);
-    };
-
-    List.associate = (models) => {
         List.hasMany(models.card);
     };
 

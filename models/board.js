@@ -1,9 +1,11 @@
+const uuid = require('uuid/v4');
+
 module.exports = (sequelize, DataTypes) => {
     const Board = sequelize.define('board', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true
+            defaultValue: () => uuid()
         },
         name: {
             type: DataTypes.STRING,
@@ -14,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             defaultValue: ""
         },
+        boardType: {
+            type: DataTypes.ENUM('personal', 'team'),
+            defaultValue: 'personal'
+        },
+        listIds: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            defaultValue: []
+        }
     },
     {
         freezeTableName: true,
@@ -21,9 +31,6 @@ module.exports = (sequelize, DataTypes) => {
 
     Board.associate = (models) => {
         Board.belongsTo(models.user);
-    };
-
-    Board.associate = (models) => {
         Board.hasMany(models.list);
     };
 

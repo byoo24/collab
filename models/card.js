@@ -1,9 +1,11 @@
+const uuid = require('uuid/v4');
+
 module.exports = (sequelize, DataTypes) => {
     const Card = sequelize.define('card', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true
+            defaultValue: () => uuid()
         },
         name: {
             type: DataTypes.STRING,

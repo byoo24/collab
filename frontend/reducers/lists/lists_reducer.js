@@ -1,8 +1,9 @@
 import {
     RECEIVE_LIST,
-} from '../../actions/board_actions';
+} from '../../actions/list_actions';
 
 import {
+    RECEIVE_SESSION_DATA,
     SESSION_LOGOUT
 } from '../../actions/session_actions';
 
@@ -10,11 +11,12 @@ import {
 
 const listsReducer = (state = {}, action) => {
     Object.freeze(state);
-    const { list } = action;
 
     switch (action.type) {
         case RECEIVE_LIST:
-            return Object.assign({}, state, { [list.id]: list });
+            return Object.assign({}, state, { [action.list.id]: action.list });
+        case RECEIVE_SESSION_DATA:
+            return Object.assign({}, state, action.lists);
         case SESSION_LOGOUT:
             return {};
         default:

@@ -6,6 +6,7 @@ export default `
         email: String!
         password: String!
         boards: [Board!]!
+        personalBoardIds: [String!]!
     }
     type Query {
         users: [User!]!

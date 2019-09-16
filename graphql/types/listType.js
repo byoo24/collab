@@ -12,7 +12,7 @@ export default `
         list(id: ID!): List
     }
     type Mutation {
-        createList(name: String!, boardId: ID!): List!
+        createList(name: String!, boardId: ID!, listIds: [String]): List!
         updateList(id: ID!, name: String): List!
     }
 `

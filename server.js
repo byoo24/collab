@@ -16,9 +16,7 @@ export const server = new ApolloServer({
         return err.message
     }
 });
-// console.log("===============");
-// console.log(server.context);
-// console.log("===============");
+
 const app = express();
 
 app.use(express.static("dist/public"));
@@ -30,7 +28,6 @@ app.use(passport.initialize());
 
 // app.use('/api/users', userRoutes);
 apiUserRoutes(app, db);
-// console.log(userRoutes);
 
 
 server.applyMiddleware({ app });

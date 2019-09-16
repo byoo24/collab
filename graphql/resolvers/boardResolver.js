@@ -8,14 +8,31 @@ export default {
         board: (parent, args, { db }, info) => db.board.findByPk(args.id)
     },
     Mutation: {
-        createBoard: (parent, args, context, info) => {
+        createBoard: async (parent, args, context, info) => {
             const { db } = context;
-            const { name, description, userId } = args;
+            // personalBoardIds: is to keep track of the order of the boards.
+            //      when creating a new board, user needs to be updated
+            const { name, description, userId, personalBoardIds } = args;
 
             return db.board.create({
                 name,
                 description,
-                userId
+                userId,
+                listIds: []
+            }).then((board) => {
+                const { dataValues } = board;
+                const boardId = dataValues.id;
+
+                // personalBoardIds is ready only
+                const boardIds = personalBoardIds[0] === "" ? [boardId] : personalBoardIds.concat(boardId);
+                
+                db.user.update({
+                    personalBoardIds: boardIds
+                }, {
+                    where: {id: userId}
+                });
+
+                return board;
             });
         },
         updateBoard: (parent, args, context, info) => {

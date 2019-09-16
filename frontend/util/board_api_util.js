@@ -3,42 +3,26 @@ import axios from 'axios';
 
 
 export const createBoard = (input) => {
-    const { name, description, userId } = input;
-
+    const { name, description, userId, personalBoardIds } = input;
+    
     return axios({
         url: '/graphql',
         method: 'post',
         data: {
             query: `
                 mutation {
-                    createBoard(name:"${name}" description:"${description}" userId:"${userId}"){
+                    createBoard(name:"${name}" description:"${description}" userId:"${userId}" personalBoardIds:"${personalBoardIds}"){
                         id,
                         name,
                         description,
-                        userId
+                        listIds,
+                        userId,
+                        user {
+                            personalBoardIds
+                        }
                     }
                 }`
         }
     });
 }
 
-
-
-export const createList = (input) => {
-    const { name, boardId } = input;
-
-    return axios({
-        url: '/graphql',
-        method: 'post',
-        data: {
-            query: `
-                mutation {
-                    createList(name:"${name}" boardId:"${boardId}"){
-                        id,
-                        name,
-                        boardId
-                    }
-                }`
-        }
-    });
-}
