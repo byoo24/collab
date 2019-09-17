@@ -18,15 +18,17 @@ export const receiveSession = (data) => {
 }
 
 
-export const receiveSessionData = ({user, boards, lists}) => {
+export const receiveSessionData = ({user, boards, lists, cards}) => {
     boards = convertArrayToObjects(boards);
     lists = convertArrayToObjects(lists);
+    cards = convertArrayToObjects(cards);
     
     return {
         type: RECEIVE_SESSION_DATA,
         user,
         boards,
-        lists
+        lists,
+        cards
     }
 }
 
@@ -112,20 +114,32 @@ export const getSessionData = userId => dispatch => (
         if (errors) {
             console.log(errors);
         } else {
+            // User
             const { user } = data;
+
+            // Boards
             const { boards } = user;
             delete user.boards;
 
+            // Lists
             let lists = [];
             boards.forEach(board => {
                 lists = lists.concat(board.lists);
                 delete board.lists;
             });
 
+            // Cards
+            let cards = [];
+            lists.forEach(list => {
+                cards = cards.concat(list.cards);
+                delete list.cards;
+            })
+
             dispatch(receiveSessionData({
                 user,
                 boards,
-                lists
+                lists,
+                cards
             }));
         }
     })

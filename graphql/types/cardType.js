@@ -3,8 +3,10 @@ export default `
         id: ID!
         name: String!
         description: String
-        listId: ID!
         list: List!
+        listId: ID!
+        createdAt: String
+        updatedAt: String
     }
     type Query {
         cards: [Card!]!

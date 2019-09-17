@@ -6,6 +6,9 @@ import db from './models';
 import passport from 'passport';
 
 import apiUserRoutes from './routes/api/users';
+import apiBoardRoutes from './routes/api/boards';
+import apiListRoutes from './routes/api/lists';
+import apiCardRoutes from './routes/api/cards';
 
 export const server = new ApolloServer({
     typeDefs: gql(typeDefs),
@@ -28,6 +31,9 @@ app.use(passport.initialize());
 
 // app.use('/api/users', userRoutes);
 apiUserRoutes(app, db);
+apiBoardRoutes(app, db);
+apiListRoutes(app, db);
+apiCardRoutes(app, db);
 
 
 server.applyMiddleware({ app });

@@ -14,6 +14,10 @@ export default {
             //      when creating a new board, user needs to be updated
             const { name, description, userId, personalBoardIds } = args;
 
+            console.log("=================");
+            console.log("args:", args);
+            console.log("=================");
+
             return db.board.create({
                 name,
                 description,
@@ -23,8 +27,23 @@ export default {
                 const { dataValues } = board;
                 const boardId = dataValues.id;
 
+
+                
                 // personalBoardIds is ready only
-                const boardIds = personalBoardIds[0] === "" ? [boardId] : personalBoardIds.concat(boardId);
+                let boardIds = [...personalBoardIds];
+
+                if (personalBoardIds[0] === "") {
+                    boardIds = [boardId];
+                } else {
+                    boardIds.push(boardId);
+                }
+                
+
+                console.log("=============");
+                console.log("boardIds", boardIds);
+                console.log("=============");
+
+
                 
                 db.user.update({
                     personalBoardIds: boardIds

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { createBoard } from '../../../actions/board_actions';
+import { isEmpty } from '../../../libs/helper_methods'
 
 
 const BoardIndex = (props) => {
@@ -11,15 +14,8 @@ const BoardIndex = (props) => {
     const [newBoardInfo, setNewBoardInfo] = useState({
         name: "",
         description: "",
-        userId: currentUser.id,
-        personalBoardIds: currentUser.personalBoardIds
+        userId: currentUser.id
     });
-
-
-    // ComponentDidMount
-    useEffect(() => {
-        updateNewBoardInfo("personalBoardIds", currentUser.personalBoardIds || []);
-    }, [currentUser])
 
 
     // Update State
@@ -31,32 +27,41 @@ const BoardIndex = (props) => {
     }
 
 
+    // Clear State
+    const clearNewBoardInfo = () => {
+        setNewBoardInfo({
+            name: "",
+            description: "",
+            userId: currentUser.id
+        });
+    }
+
+
     // Form Submission
     const handleCreateBoard = (e) => {
         e.preventDefault();
 
         props.createBoard(newBoardInfo);
+        clearNewBoardInfo();
     }
     
 
     // Board Index
-    const boardItems = (boards) ? 
-        boards.map(board => {
-            return (
-                <li key={board.id} className="board_item">
-                    <Link to={match.url + `/board/${board.id}`}>
-                        {board.name}
-                    </Link>
-                </li>
-            )
-        }) : null;
+    const boardItems = boards.map(board => {
+        return (
+            <li key={board.id} className="board_item">
+                <Link to={match.url + `/board/${board.id}`}>
+                    {board.name}
+                </Link>
+            </li>
+        )
+    });
 
 
     return (
-        <div>
+        <div className="board_index">
             <h1>BOARD INDEX</h1>
-            <button className="board" onClick={handleCreateBoard}>Create Board!</button>
-            <ul className="board_index">
+            <ul className="board_index-container">
 
                 { boardItems }
 
@@ -86,4 +91,26 @@ const BoardIndex = (props) => {
 
 
 
-export default BoardIndex;
+
+const msp = (state, ownProps) => {
+    // Personal Board Index
+    const currentUser = ownProps.currentUser || {};
+    const personalBoardIds = currentUser.personalBoardIds ? currentUser.personalBoardIds : [];
+    const boards = isEmpty(state.boards) ? [] : personalBoardIds.map(boardId => state.boards[boardId]);
+
+    return {
+        currentUser,
+        boards
+    }
+}
+
+
+const mdp = (dispatch) => {
+    return {
+        createBoard: (board) => dispatch(createBoard(board)),
+    }
+}
+
+
+
+export default connect(msp, mdp)(BoardIndex);

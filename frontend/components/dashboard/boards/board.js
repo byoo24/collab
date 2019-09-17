@@ -1,65 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createList } from '../../../actions/list_actions';
+import { isEmpty } from '../../../libs/helper_methods';
+
+import List from './list';
 
 
 
 const Board = (props) => {
 
-    
     // SETUP
-    const [ newListName, setNewListName ] = useState("");
     const { board, lists } = props;
-    let name = null, description = null, listIds = null;
+    const boardTitle = board.name || null;
 
-    if (board) {
-        name = board.name;
-        description = board.description;
-        listIds = board.listIds;
+    const [ newListInfo, setNewListInfo ] = useState({
+        name: "",
+        boardId: board.id,
+    });
+
+
+    // Update State
+    const updateNewListInfo = (field, value) => {
+        const copyListInfo = Object.assign({}, newListInfo);
+
+        copyListInfo[field] = value;
+        setNewListInfo(copyListInfo);
     }
 
 
-    
+    // Form Submission
     const handleCreateList = (e) => {
         e.preventDefault();
-        props.createList({
-            name: newListName,
-            boardId: board.id,
-            listIds: listIds
-        });
+        props.createList(newListInfo);
     }
 
+    
     const listItems = lists.map(list => {
         return (
-            <li key={list.id} className="list_item">
-                <h2>{list.name}</h2>
-            </li>
+            <div key={list.id} className="list_items">
+                <List list={list} cardIds={list.cardIds}/>
+            </div>
         )
-    })
+    });
 
     return (
         <div className="board_main">
             <div className="board_main-container">
-                <h1>BOARD</h1>
                 <header className="board_main-header">
-                    <h1 className="board_main-title">{ name }</h1>
+                    <h1 className="board_main-title">{ boardTitle }</h1>
                 </header>
 
-                <ul className="list_main">
+                <section className="list_main">
                     
                     { listItems }
 
-                    <li className="list_item">
+                    <div className="list_items">
                         <form onSubmit={(e) => handleCreateList(e)}>
                             <input 
                                 type="text" 
                                 placeholder="Enter list title"
-                                value={ newListName }
-                                onChange={(e) => setNewListName(e.target.value)} />
-                            <input type="submit" value="Add List" />
+                                value={ newListInfo.info }
+                                onChange={(e) => updateNewListInfo("name", e.target.value)} />
+                            <input type="submit" value="New List" />
                         </form>
-                    </li>
-                </ul>
+                    </div>
+                </section>
 
             </div>
         </div>
@@ -77,12 +82,11 @@ const Board = (props) => {
 const msp = (state, ownProps) => {
     // Individual Board
     const boardId = ownProps.match.params.boardId || null;
-    const board = boardId ? state.boards[boardId] : null;
+    const board = state.boards[boardId] ? state.boards[boardId] : {};
 
     // Board's List Index
-    const listIds = board ? board.listIds : null;
-    const lists = listIds ? listIds.map(listId => state.lists[listId]) : null;
-
+    const listIds = board.listIds ? board.listIds : [];
+    const lists = isEmpty(state.lists) ? [] : listIds.map(listId => state.lists[listId]);
     return {
         board,
         lists

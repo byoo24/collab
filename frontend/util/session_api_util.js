@@ -39,12 +39,26 @@ export const getSessionData = (userId) => {
                             id,
                             name,
                             description,
+                            boardType,
+                            createdAt,
+                            updatedAt,
                             userId,
                             listIds,
                             lists {
                                 id,
                                 name,
                                 boardId,
+                                createdAt,
+                                updatedAt,
+                                cardIds
+                                cards {
+                                    id,
+                                    name,
+                                    description,
+                                    createdAt,
+                                    updatedAt,
+                                    listId
+                                }
                             }
                         }
                     }

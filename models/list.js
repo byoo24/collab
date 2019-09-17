@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             length: 60,
             allowNull: false
         },
+        cardIds: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            defaultValue: []
+        }
     },
     {
         freezeTableName: true,

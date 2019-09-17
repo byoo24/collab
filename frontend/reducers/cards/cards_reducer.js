@@ -1,8 +1,4 @@
 import {
-    RECEIVE_LIST,
-} from '../../actions/list_actions';
-
-import {
     RECEIVE_CARD,
 } from '../../actions/card_actions';
 
@@ -18,10 +14,9 @@ const listsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_CARD:
-        case RECEIVE_LIST:
-            return Object.assign({}, state, { [action.list.id]: action.list });
+            return Object.assign({}, state, { [action.card.id]: action.card });
         case RECEIVE_SESSION_DATA:
-            return Object.assign({}, state, action.lists);
+            return Object.assign({}, state, action.cards);
         case SESSION_LOGOUT:
             return {};
         default:

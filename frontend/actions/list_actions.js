@@ -19,17 +19,16 @@ export const receiveList = ({list, board}) => {
 
 
 export const createList = input => dispatch => (
-    APIUtil.createList(input).then(list => {
-        const { data, errors } = list.data;
-        
+    APIUtil.createList(input).then(res => {
+        const { data, errors } = res;
+
         if (errors) {
             console.log(errors);
         } else {
-            const { board } = data.createList;
-            delete data.createList.board;
+            const { list, board } = data;
 
             dispatch(receiveList({
-                list: data.createList,
+                list,
                 board
             }));
         }

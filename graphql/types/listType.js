@@ -3,9 +3,12 @@ export default `
     type List {
         id: ID!
         name: String!
-        boardId: ID!
         board: Board!
+        boardId: ID!
         cards: [Card!]!
+        cardIds: [String!]!
+        createdAt: String
+        updatedAt: String
     }
     type Query {
         lists: [List!]!
