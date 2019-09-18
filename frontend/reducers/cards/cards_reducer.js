@@ -22,7 +22,7 @@ const listsReducer = (state = {}, action) => {
         default:
             return state;
     }
-}
+}  
 
 
 export default listsReducer;
