@@ -75,6 +75,33 @@ export default (app, db) => {
                         })
                 })
     })
+
+
+    app.put('/api/v1/users/:userId', (req, res) => {
+        const errors = {};
+
+        if(!req.body.id) {
+            errors.userId = "User ID is required";
+            return res.status(400).json(errors);
+        }
+
+        db.user.findByPk(req.body.id)
+               .then(user => {
+                   if (!user) {
+                       errors.user = "User doesn't exist";
+                       return res.status(400).json(errors);
+                   }
+
+                   const { username, email, personalBoardIds } = req.body;
+                   
+                   user.update({ username, email, personalBoardIds });
+                   delete user.dataValues.password;
+
+                   return res.json({
+                       user
+                   });
+               });
+    });
 }
 
 

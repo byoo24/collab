@@ -11,7 +11,7 @@ const sessionErrorsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case SESSION_ERRORS:
-            return Object.assign({}, state, action.errors);
+            return action.errors;
         case SESSION_LOGOUT:
         case CLEAR_SESSION_ERRORS:
             return {};

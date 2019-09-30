@@ -20,6 +20,12 @@ export const login = (user) => {
 }
 
 
+export const updateSession = (user) => {
+    const userId = user.id;
+    return axios.put(`/api/v1/users/${userId}`, user);
+}
+
+
 
 
 export const getSessionData = (userId) => {

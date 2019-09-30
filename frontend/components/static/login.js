@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { isEmpty } from '../../libs/helper_methods';
 import {
     login,
@@ -7,15 +8,22 @@ import {
 } from '../../actions/session_actions';
 
 const Login = (props) => {
+    const { errors } = props;
     const [userInfo, setUserInfo] = useState({
         username: "",
         password: "",
     });
     
-    // ComponentWillUnmount
     useEffect(() => {
+        // ComponentDidMount
+        if (props.isErrors) {
+            props.clearSessionErrors();
+        }
+
+        // ComponentWillUnmount
         return function clearErrors() {
-            if (!isEmpty(props.errors)) {
+
+            if (props.isErrors) {
                 props.clearSessionErrors();
             }
         }
@@ -30,36 +38,86 @@ const Login = (props) => {
         props.login(userInfo);
     }
 
+    const uiErrors = props.isErrors ? (
+        <div className="ui error message visible">
+            <span className="ui left aligned header">
+                There were some errors with your submission.
+            </span>
+            <ul className="list">
+                {
+                    Object.values(errors).map((error, idx) => {
+                        return (
+                            <li key={idx}>
+                                {error}
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        </div>
+    ) : null;
+
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor="username">
-                <input
-                    type="text"
-                    placeholder="username"
-                    value={userInfo.username}
-                    onChange={(e) => updateUserInfo("username", e.target.value)}
-                />
-            </label>
+        <div className="ui center aligned text grid container">
+            <div className="twelve wide column">
+                <h2 className="ui teal image header">
+                    <div className="content">
+                        Welcome back
+                    </div>
+                </h2>
 
-            <label htmlFor="password">
-                <input
-                    type="password"
-                    placeholder="password"
-                    value={userInfo.password}
-                    onChange={(e) => updateUserInfo("password", e.target.value)}
-                />
-            </label>
+                <form className="ui large form" onSubmit={(e) => handleSubmit(e)}>
 
-            <input type="submit" value="Login!" />
-        </form>
+                    { uiErrors }
+
+                    <div className="ui raised segment">
+
+                        <div className="field">
+                            <div className={`ui left icon input ${errors.username ? 'error' : ''}`}>
+                                <i className="user icon"></i>
+                                <input
+                                    type="text"
+                                    placeholder="Username"
+                                    value={userInfo.username}
+                                    onChange={e => updateUserInfo("username", e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <div className={`ui left icon input ${errors.password ? 'error' : ''}`}>
+                                <i className="lock alternate icon"></i>
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    value={userInfo.password}
+                                    onChange={e => updateUserInfo("password", e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <input type="submit" className="ui fluid large teal submit button" value="Login" />
+
+                    </div>
+                </form>
+
+                <div className="ui message">
+                    New here? <Link to="/signup">Signup</Link>
+                </div>
+            </div>
+        </div>
     )
 }
 
 
 const msp = state => {
+    const errors = state.errors.session;
+    const isErrors = !isEmpty(errors);
+
     return {
-        errors: state.errors.session
+        errors,
+        isErrors
     }
 }
 

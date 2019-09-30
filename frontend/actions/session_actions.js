@@ -10,7 +10,6 @@ export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 
 
 export const receiveSession = (data) => {
-    
     return {
         type: RECEIVE_SESSION,
         user: data
@@ -38,7 +37,6 @@ export const receiveLogout = () => ({
 });
 
 
-
 export const sessionErrors = (errors) => ({
     type: SESSION_ERRORS,
     errors
@@ -48,6 +46,7 @@ export const sessionErrors = (errors) => ({
 export const clearSessionErrors = () => ({
     type: CLEAR_SESSION_ERRORS
 })
+
 
 
 
@@ -92,8 +91,6 @@ export const login = input => dispatch => (
 );
 
 
-
-
 export const logout = () => dispatch => {
     // Remove the token from local storage
     localStorage.removeItem('jwtToken');
@@ -104,7 +101,6 @@ export const logout = () => dispatch => {
     // Dispatch a logout action
     dispatch(receiveLogout());
 }
-
 
 
 export const getSessionData = userId => dispatch => (
@@ -144,3 +140,30 @@ export const getSessionData = userId => dispatch => (
         }
     })
 )
+
+
+
+
+// export const receiveUpdatedSession = ({ user }) => {
+//     return {
+//         type: RECEIVE_UPDATED_USER,
+//         user
+//     }
+// }
+
+
+
+export const updateSession = user => dispatch => {
+    
+    APIUtil.updateSession(user).then(res => {
+        const { data, errors } = res;
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            const { user } = data;
+
+            dispatch(receiveSession(user));
+        }
+    })
+}

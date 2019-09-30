@@ -22,7 +22,7 @@ export const server = new ApolloServer({
 
 const app = express();
 
-app.use(express.static("dist/public"));
+app.use(express.static("dist"));
 
 // Body Parser Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -40,8 +40,9 @@ server.applyMiddleware({ app });
 
 
 const eraseDatabaseOnSync = true;
+const port = process.env.PORT || 4000;
 db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
-    app.listen({ port: 4000 }, () =>
+    app.listen({ port }, () =>
         console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
     );
 });

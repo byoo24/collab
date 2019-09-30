@@ -13,6 +13,3 @@ export const receiveUser = ({user, boards}) => {
         boards
     }
 }
-
-
-

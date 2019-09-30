@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 import { getSessionData } from '../../actions/session_actions';
 
-import BoardIndex from './boards/boardIndex';
-import Board from './boards/board';
+import BoardIndex from './boards/boards_index';
+// import Board from './boards/board';
 
 
 
@@ -28,11 +28,10 @@ const Dashboard = (props) => {
             <Switch>
                 <CustomRoute exact path={match.url + "/"} 
                         component={ BoardIndex } 
-                        currentUser={ props.currentUser }
                 />
-                <CustomRoute exact path={match.url + "/board/:boardId"} 
+                {/* <CustomRoute exact path={match.url + "/board/:boardId"} 
                         component={ Board }
-                />
+                /> */}
             </Switch>
         </div>
     )
