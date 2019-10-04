@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
 
 const BoardDraggableItem = (props) => {
@@ -15,7 +16,9 @@ const BoardDraggableItem = (props) => {
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <h3>{props.board.name}</h3>
+                    <Link to={`/dashboard/boards/${board.id}`}>
+                        <h3>{board.name}</h3>
+                    </Link>
                 </div>
 
             )}

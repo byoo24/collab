@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
+import { Link } from 'react-router-dom';
 
 import { createBoard } from '../../../actions/board_actions';
 
@@ -45,9 +46,10 @@ const BoardDropZone = (props) => {
 
 
 
+
     return(
         <>
-            <Droppable droppableId={id}>
+            <Droppable droppableId={id} direction="horizontal">
                 {(provided) => (
                     <div className="boards_index-drop"
                          ref={provided.innerRef}

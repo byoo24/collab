@@ -1,1 +1,26 @@
 @import 'dashboard/board_index.css';
+@import 'dashboard/board_view.css';
+
+
+
+#root{
+    height: 100%;
+}
+
+
+.content_wrap{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: inherit;
+    overflow: none;
+}
+
+
+#content {
+    flex-grow: 1;
+    position: relative;
+    outline: none;
+}
+
+

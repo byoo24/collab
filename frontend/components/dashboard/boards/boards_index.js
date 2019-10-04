@@ -16,7 +16,7 @@ const BoardContext = (props) => {
     // SETUP
     const { boards } = props;
     const [userInfo, setUserInfo] = useState(props.currentUser);
-    const [updateDebounce, setUpdateDebounce] = useState(() => debounce(5000))
+    const [updateDebounce, setUpdateDebounce] = useState(() => debounce(1000))
     const boardOrder = userInfo.personalBoardIds ? userInfo.personalBoardIds : [];
     const personalBoards = boardOrder.map(boardId => boards[boardId]);
 

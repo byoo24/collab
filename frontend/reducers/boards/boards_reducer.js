@@ -1,5 +1,6 @@
 import { 
-    RECEIVE_BOARD
+    RECEIVE_BOARD,
+    RECEIVE_UPDATED_BOARD
 } from '../../actions/board_actions';
 
 import {
@@ -19,6 +20,7 @@ const boardsReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_LIST:
         case RECEIVE_BOARD:
+        case RECEIVE_UPDATED_BOARD:
             return Object.assign({}, state, { [action.board.id]: action.board });
         case RECEIVE_SESSION_DATA:
             return Object.assign({}, state, action.boards);

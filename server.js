@@ -39,7 +39,7 @@ apiCardRoutes(app, db);
 server.applyMiddleware({ app });
 
 
-const eraseDatabaseOnSync = true;
+const eraseDatabaseOnSync = false;
 const port = process.env.PORT || 4000;
 db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
     app.listen({ port }, () =>

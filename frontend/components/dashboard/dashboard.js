@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getSessionData } from '../../actions/session_actions';
 
 import BoardIndex from './boards/boards_index';
-// import Board from './boards/board';
+import Board from './board/board_view';
 
 
 
@@ -22,20 +22,22 @@ const Dashboard = (props) => {
 
     
     return (
-        <div>
-            <h1>Dashboard</h1>
-
-            <Switch>
-                <CustomRoute exact path={match.url + "/"} 
-                        component={ BoardIndex } 
-                />
-                {/* <CustomRoute exact path={match.url + "/board/:boardId"} 
-                        component={ Board }
-                /> */}
-            </Switch>
+        <div className="content_wrap">
+            <div id="content">
+                <Switch>
+                    <CustomRoute exact path={match.url + "/"}
+                        component={BoardIndex}
+                    />
+                    <CustomRoute exact path={match.url + "/boards/:boardId"}
+                        component={Board}
+                    />
+                </Switch>
+            </div>
+            
         </div>
     )
 }
+
 
 
 
@@ -55,5 +57,6 @@ const mdp = (dispatch) => {
         getSessionData: (userId) => dispatch(getSessionData(userId)),
     }
 }
+
 
 export default connect(msp, mdp)(Dashboard);
