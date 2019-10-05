@@ -59,54 +59,61 @@ const Login = (props) => {
 
 
     return (
-        <div className="ui center aligned text grid container">
-            <div className="twelve wide column">
-                <h2 className="ui teal image header">
-                    <div className="content">
-                        Welcome back
+        <div className="main-signin">
+            
+
+            <div className="ui center aligned text grid container">
+
+                
+                <div className="twelve wide column">
+
+                    <div className="logo">
+                        <img src="./images/logo-blue.svg" />
+                        <span className="logo-text">collab</span>
                     </div>
-                </h2>
+                    
+                    <form className="ui large form" onSubmit={(e) => handleSubmit(e)}>
 
-                <form className="ui large form" onSubmit={(e) => handleSubmit(e)}>
+                        {uiErrors}
 
-                    { uiErrors }
+                        <div className="ui raised segment">
 
-                    <div className="ui raised segment">
-
-                        <div className="field">
-                            <div className={`ui left icon input ${errors.username ? 'error' : ''}`}>
-                                <i className="user icon"></i>
-                                <input
-                                    type="text"
-                                    placeholder="Username"
-                                    value={userInfo.username}
-                                    onChange={e => updateUserInfo("username", e.target.value)}
-                                />
+                            <div className="field">
+                                <div className={`ui left icon input ${errors.username ? 'error' : ''}`}>
+                                    <i className="user icon"></i>
+                                    <input
+                                        type="text"
+                                        placeholder="Username"
+                                        value={userInfo.username}
+                                        onChange={e => updateUserInfo("username", e.target.value)}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="field">
-                            <div className={`ui left icon input ${errors.password ? 'error' : ''}`}>
-                                <i className="lock alternate icon"></i>
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    value={userInfo.password}
-                                    onChange={e => updateUserInfo("password", e.target.value)}
-                                />
+                            <div className="field">
+                                <div className={`ui left icon input ${errors.password ? 'error' : ''}`}>
+                                    <i className="lock alternate icon"></i>
+                                    <input
+                                        type="password"
+                                        placeholder="Password"
+                                        value={userInfo.password}
+                                        onChange={e => updateUserInfo("password", e.target.value)}
+                                    />
+                                </div>
                             </div>
+
+                            <input type="submit" className="ui fluid large blue submit button" value="Login" />
+
                         </div>
+                    </form>
 
-                        <input type="submit" className="ui fluid large teal submit button" value="Login" />
-
+                    <div className="ui message">
+                        New here? <Link to="/signup">Signup</Link>
                     </div>
-                </form>
-
-                <div className="ui message">
-                    New here? <Link to="/signup">Signup</Link>
                 </div>
             </div>
         </div>
+        
     )
 }
 

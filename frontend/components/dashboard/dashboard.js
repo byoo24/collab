@@ -3,27 +3,29 @@ import { Switch } from 'react-router-dom';
 import { CustomRoute } from '../../util/route_util';
 import { connect } from 'react-redux';
 
-import { getSessionData } from '../../actions/session_actions';
+import { getSessionData, logout } from '../../actions/session_actions';
 
 import BoardIndex from './boards/boards_index';
 import Board from './board/board_view';
+import NavBar from './navbar/navbar';
 
 
 
 const Dashboard = (props) => {
 
     // SETUP
-    const { match } = props;
+    const { match, currentUser } = props;
 
     // ComponentDidMount
     useEffect(() => {
-        props.getSessionData(props.currentUser.id);
+        props.getSessionData(currentUser.id);
     }, []);
 
     
     return (
         <div className="content_wrap">
             <div id="content">
+                <NavBar currentUser={currentUser} logout={props.logout} />
                 <Switch>
                     <CustomRoute exact path={match.url + "/"}
                         component={BoardIndex}
@@ -42,7 +44,7 @@ const Dashboard = (props) => {
 
 
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
     // Personal Board Index
     const currentUser = state.session || {};
     
@@ -55,6 +57,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         getSessionData: (userId) => dispatch(getSessionData(userId)),
+        logout: () => dispatch(logout())
     }
 }
 

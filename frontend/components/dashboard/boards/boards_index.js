@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
 import { createBoard } from '../../../actions/board_actions';
 import { updateSession } from '../../../actions/session_actions';
 
-import BoardsDropZone from './boards_drop_zone';
+import BoardsDraggableItem from './boards_draggable_item';
 
 
 
-
+const PersonalBoards = styled.div``;
 
 
 const BoardContext = (props) => {
@@ -17,8 +18,8 @@ const BoardContext = (props) => {
     const { boards } = props;
     const [userInfo, setUserInfo] = useState(props.currentUser);
     const [updateDebounce, setUpdateDebounce] = useState(() => debounce(1000))
-    const boardOrder = userInfo.personalBoardIds ? userInfo.personalBoardIds : [];
-    const personalBoards = boardOrder.map(boardId => boards[boardId]);
+    const personalBoards = userInfo.personalBoardIds ? userInfo.personalBoardIds : [];
+    // const personalBoards = personalBoards.map(boardId => boards[boardId]);
 
     
     // ComponentDidUpdate
@@ -77,9 +78,28 @@ const BoardContext = (props) => {
 
 
     return(
-        <DragDropContext onDragEnd={onDragEnd}>
-            <BoardsDropZone id="personal-boards" user={userInfo} boards={personalBoards}/>
-        </DragDropContext>
+        <div className="boards_index-main">
+            <div className="board_index-container">
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <h2>Personal Boards</h2>
+                    <Droppable droppableId="personal-boards" direction="horizontal">
+                        {(provided) => (
+                            <PersonalBoards
+                                className="boards_index-personal"
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {personalBoards.map((boardId, idx) => {
+                                    const board = boards[boardId];
+                                    return <BoardsDraggableItem key={board.id} board={board} index={idx} />;
+                                })}
+                            </PersonalBoards>
+                        )}
+                    </Droppable>
+                    {/* <BoardsDropZone id="personal-boards" user={userInfo} boards={personalBoards}/> */}
+                </DragDropContext>
+            </div>
+        </div>
     )
 }
 
