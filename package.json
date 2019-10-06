@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
-    "start": "node ./dist/index.js",
+    "start": "npm run prod",
     "server": "babel-node ./src/index.js",
     "server:prod": "node ./dist/index.js",
     "dev": "NODE_ENV=development npm-run-all server",
