@@ -69,7 +69,7 @@ const Signup = (props) => {
                 <div className="twelve wide column">
                     <div className="logo signup">
                         <img src="./images/logo-blue.svg" />
-                        <span className="logo-text">collab</span>
+                        <span className="logo-text">Collab</span>
                     </div>
 
                     <h2 className="ui image header">

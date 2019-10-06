@@ -69,7 +69,7 @@ const Login = (props) => {
 
                     <div className="logo">
                         <img src="./images/logo-blue.svg" />
-                        <span className="logo-text">collab</span>
+                        <span className="logo-text">Collab</span>
                     </div>
                     
                     <form className="ui large form" onSubmit={(e) => handleSubmit(e)}>

@@ -150,7 +150,7 @@ const BoardView = (props) => {
         <div className="board_wrap">
             <div style={bgColor} className="board_main-content">
                 <div className="board_header">
-                    <h1 className="board_title">{board.name}</h1>
+                    <h2 className="board_title">{board.name}</h2>
                 </div>
 
                 <div className="board_view">

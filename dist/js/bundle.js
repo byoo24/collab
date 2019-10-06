@@ -752,7 +752,7 @@ var BoardView = function BoardView(props) {
     className: "board_main-content"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "board_header"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
     className: "board_title"
   }, board.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "board_view"
@@ -910,16 +910,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _templateObject3() {
-  var data = _taggedTemplateLiteral([""]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject2() {
   var data = _taggedTemplateLiteral([""]);
 
@@ -948,8 +938,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var Container = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject(), function (props) {
   return props.isDragging ? 'lightgreen' : 'white';
 });
-var CardContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2());
-var Title = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].p(_templateObject3());
+var Title = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].p(_templateObject2());
 
 var CardRows = function CardRows(props) {
   var index = props.index,
@@ -962,7 +951,10 @@ var CardRows = function CardRows(props) {
       className: "card_item"
     }, provided.draggableProps, provided.dragHandleProps, {
       ref: provided.innerRef,
-      isDragging: snapshot.isDragging
+      isDragging: snapshot.isDragging,
+      onClick: function onClick() {
+        return console.log(index);
+      }
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null, card.name));
   });
 };
@@ -1125,7 +1117,7 @@ var ListColumn = function ListColumn(props) {
     }, provided.dragHandleProps), !showListNameForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "list_title-text"
     }, listInfo.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      className: "material-icons",
+      className: "list_title-edit material-icons",
       onClick: function onClick() {
         return setShowListNameForm(true);
       }
@@ -1140,7 +1132,7 @@ var ListColumn = function ListColumn(props) {
       },
       required: true
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      className: "material-icons",
+      className: "list_title-edit material-icons",
       onClick: function onClick() {
         return setShowListNameForm(false);
       }
@@ -1736,7 +1728,7 @@ var Home = function Home(props) {
     src: "./images/logo-white.svg"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-text"
-  }, "collab"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Collab"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "nav_right"
   }, loggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "",
@@ -1874,7 +1866,7 @@ var Login = function Login(props) {
     src: "./images/logo-blue.svg"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-text"
-  }, "collab")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  }, "Collab")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "ui large form",
     onSubmit: function onSubmit(e) {
       return handleSubmit(e);
@@ -2036,7 +2028,7 @@ var Signup = function Signup(props) {
     src: "./images/logo-blue.svg"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-text"
-  }, "collab")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+  }, "Collab")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
     className: "ui image header"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "content"

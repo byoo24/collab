@@ -3,6 +3,13 @@
     height: 100%;
 }
 
+.board_title{
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0 1em;
+    color: white;
+}
+
 .board_main-content {
     display: flex;
     flex-direction: column;
@@ -81,6 +88,16 @@
     padding: 0.5em;
     background-color: #ebecf0;
     border-radius: 3px;
+}
+
+.list_title-edit {
+    font-size: 16px;
+    color: #999;
+    transition: color .2s ease;
+}
+
+.list_title-edit:hover {
+    color: #333;
 }
 
 

@@ -9,7 +9,7 @@ const NavBar = (props) => {
             <Link to="/dashboard" className="header item">
                 <img className="logo" src="./images/logo-white.svg" alt="" />
                 Collab
-                    </Link>
+            </Link>
 
             <div className="right menu">
                 {currentUser.username ? (

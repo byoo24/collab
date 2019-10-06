@@ -20,7 +20,7 @@ const Home = (props) => {
                     <div className="nav_left">
                         <div className="logo">
                             <img src="./images/logo-white.svg" />
-                            <span className="logo-text">collab</span>
+                            <span className="logo-text">Collab</span>
                         </div>
                     </div>
 

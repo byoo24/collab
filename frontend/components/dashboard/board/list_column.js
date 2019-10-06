@@ -80,7 +80,7 @@ const ListColumn = (props) => {
                                 <span className="list_title-text">
                                     {listInfo.name}
                                 </span>
-                                <span className="material-icons" onClick={() => setShowListNameForm(true)}>edit</span>
+                                <span className="list_title-edit material-icons" onClick={() => setShowListNameForm(true)}>edit</span>
                                 </>
                             ) : (
                                 <>
@@ -91,7 +91,7 @@ const ListColumn = (props) => {
                                             onChange={(e) => updateListInfo('name', e.target.value)} 
                                             required />
                                 </form>
-                                <span className="material-icons" onClick={() => setShowListNameForm(false)}>clear</span>
+                                <span className="list_title-edit material-icons" onClick={() => setShowListNameForm(false)}>clear</span>
                                 </>
                             )
                         }
