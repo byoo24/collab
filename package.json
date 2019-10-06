@@ -11,16 +11,7 @@
     "dev": "NODE_ENV=development npm-run-all server",
     "clean": "rimraf dist",
     "build": "babel ./src --out-dir dist",
-    "prod": "NODE_ENV=production npm-run-all clean build server:prod",
-    "Oserver": "babel-node server.js",
-    "Oserver:prod": "node ./prod/server.js",
-    "Oserver:watch": "nodemon --exec babel-node server.js",
-    "Opostinstall": "webpack --config webpack.prod.js",
-    "Owebpack": "webpack --watch ---open --config webpack.dev.js",
-    "Ostart": "npx babel-node server.js",
-    "Oclean": "rimraf prod",
-    "Obuild": "babel server.js --out-dir prod",
-    "Oprod": "NODE_ENV=production npm-run-all clean build server:prod"
+    "prod": "NODE_ENV=production npm-run-all clean build server:prod"
   },
   "keywords": [],
   "author": "",
