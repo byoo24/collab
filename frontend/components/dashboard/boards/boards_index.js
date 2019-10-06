@@ -55,26 +55,6 @@ const BoardContext = (props) => {
     }
 
 
-    function onDragEnd(result) {
-        const { destination, source, draggableId } = result;
-
-        // Dropped item in an invalid area
-        if (!destination) {
-            return;
-        }
-
-        // Dropped the item in it's original location
-        if ( destination.droppableId === source.droppableId &&
-             destination.index === source.index ) {
-            return;
-        }
-
-        const newBoardOrder = Array.from(boardOrder);
-        newBoardOrder.splice(source.index, 1);
-        newBoardOrder.splice(destination.index, 0, draggableId);
-
-        updateUserInfo('personalBoardIds', newBoardOrder);        
-    }
 
 
     return(
@@ -82,7 +62,7 @@ const BoardContext = (props) => {
             <div className="boards_index-container">
                 <div className="index_header">
                     <span className="index_title">Personal Boards</span>
-                    <span className="index_add ui icon">
+                    <span className="index_add ui icon" onClick={props.modalNewBoard}>
                         <i className="material-icons">library_add</i>
                     </span>
                 </div>

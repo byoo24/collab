@@ -7,6 +7,15 @@ export const createCard = (card) => {
     return axios.post('/api/v1/cards', card);
 }
 
+
+export const updateCard = (card) => {
+    const cardId = card.id;
+    return axios.put(`/api/v1/cards/${cardId}`, card);
+}
+
+
+
+
 // export const createCard = (input) => {
 //     const { name, description, listId, cardIds } = input;
 

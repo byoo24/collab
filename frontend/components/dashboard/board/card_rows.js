@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
+import { modalUpdateCard } from '../../../actions/modals_action';
 
 
 const Container = styled.div`
@@ -12,6 +14,8 @@ const Title = styled.p``;
 
 const CardRows = (props) => {
     const { index, card } = props;
+
+
     
     return(
         <Draggable draggableId={card.id} index={index}>
@@ -22,7 +26,7 @@ const CardRows = (props) => {
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
-                    onClick={() => console.log(index)}
+                    onClick={() => props.modalUpdateCard(card)}
                 >
                     <Title>{card.name}</Title>
                 </Container>
@@ -32,6 +36,10 @@ const CardRows = (props) => {
 }
 
 
+const mdp = (dispatch) => {
+    return {
+        modalUpdateCard: (data) => dispatch(modalUpdateCard(data))
+    }
+}
 
-
-export default CardRows;
+export default connect(null, mdp)(CardRows);

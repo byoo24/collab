@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEmpty } from '../../libs/helper_methods';
-import { 
-    signup,
-    clearSessionErrors,
-} from '../../actions/session_actions';
+import { signup, login, clearSessionErrors } from '../../actions/session_actions';
 
 const Signup = (props) => {
     const { errors } = props;
@@ -38,6 +35,14 @@ const Signup = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.signup(userInfo);
+    }
+
+    const handleGuestLogin = (e) => {
+        e.preventDefault();
+        props.login({
+            username: "demouser",
+            password: "password123"
+        })
     }
 
     const uiErrors = props.isErrors ? (
@@ -136,7 +141,8 @@ const Signup = (props) => {
                         </div>
                     </form>
                     <div className="ui message">
-                        Already have an account? <Link to="/login">Login</Link>
+                        <div>Already have an account? <Link to="/login">Login</Link></div>
+                        <div>Guest Account? <a href="" onClick={(e) => handleGuestLogin(e)}>Demo Login</a></div>
                     </div>
                 </div>
             </div>
@@ -159,6 +165,7 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         signup: (user) => dispatch(signup(user)),
+        login: (user) => dispatch(login(user)),
         clearSessionErrors: () => dispatch(clearSessionErrors())
     }
 }

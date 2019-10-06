@@ -32,6 +32,30 @@ export default (app, db) => {
             });
         });
     });
+
+
+
+    app.put('/api/v1/cards/:cardId', (req, res) => {
+        const errors = {};
+
+        if (!req.body.id) {
+            errors.cardId = "Card ID is missing";
+            return res.status(400).json(errors);
+        }
+
+        db.card.findByPk(req.body.id)
+            .then(card => {
+                if (!card) {
+                    errors.card = "Card wasn't found";
+                    return res.status(400).json(errors);
+                }
+                card.update(req.body);
+
+                return res.json({
+                    card
+                });
+            })
+    });
 }
 
 

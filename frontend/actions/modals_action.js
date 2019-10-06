@@ -1,20 +1,29 @@
 
 
 export const MODAL_NEW_BOARD = "MODAL_NEW_BOARD";
+export const MODAL_UPDATE_CARD = "MODAL_UPDATE_CARD";
 export const MODAL_CLEAR = "MODAL_CLEAR";
 
 
-export const modalNewBoard = (props) => {
-
+export const modalNewBoard = (data) => {
     return {
-        type: MODAL_NEW_BOARD
+        type: MODAL_NEW_BOARD,
+        data: null
     }
 }
 
 
-
-export const modalClear = (props) => {
+export const modalUpdateCard = (data) => {
     return {
-        type: MODAL_CLEAR
+        type: MODAL_UPDATE_CARD,
+        data
+    }
+}
+
+
+export const modalClear = (data) => {
+    return {
+        type: MODAL_CLEAR,
+        data: null
     }
 }

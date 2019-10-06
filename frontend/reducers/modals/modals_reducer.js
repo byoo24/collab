@@ -1,17 +1,19 @@
 import {
     MODAL_NEW_BOARD,
+    MODAL_UPDATE_CARD,
     MODAL_CLEAR
 } from '../../actions/modals_action';
 
 
-const modalsReducer = (state = null, action) => {
+const modalsReducer = (state = {}, action) => {
     Object.freeze(state);
 
     switch (action.type) {
+        case MODAL_UPDATE_CARD:
         case MODAL_NEW_BOARD:
-            return action.type;
+            return action;
         case MODAL_CLEAR:
-            return null;
+            return {};
         default:
             return state;
     }

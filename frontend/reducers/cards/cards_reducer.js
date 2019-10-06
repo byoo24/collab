@@ -1,5 +1,6 @@
 import {
     RECEIVE_CARD,
+    RECEIVE_UPDATED_CARD
 } from '../../actions/card_actions';
 
 import {
@@ -13,6 +14,7 @@ const listsReducer = (state = {}, action) => {
     Object.freeze(state);
 
     switch (action.type) {
+        case RECEIVE_UPDATED_CARD:
         case RECEIVE_CARD:
             return Object.assign({}, state, { [action.card.id]: action.card });
         case RECEIVE_SESSION_DATA:

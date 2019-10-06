@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { updateBoard } from '../../../actions/board_actions';
-import { createList } from '../../../actions/list_actions';
+import { createList, updateListsArr } from '../../../actions/list_actions';
 import ListColumn from './list_column';
 
 
@@ -18,11 +18,12 @@ const BoardView = (props) => {
 
     // Board
     const [boardInfo, setBoardInfo] = useState(board);
-    const [updateDebounce, setUpdateDebounce] = useState(() => debounce(1000));
+    const [updateBoardInfoDebounce, setBoardInfoDebounce] = useState(() => debounce(1000));
     const listOrder = boardInfo.listIds ? boardInfo.listIds : [];
 
     // Lists
     const [allLists, setAllLists] = useState(lists);
+    const [updateAllListsDebounce, setUpdateAllListsDebounce] = useState(() => debounce(1000));
     const [showNewListForm, setShowNewListForm] = useState(false);
     const [newListInfo, setNewListInfo] = useState({
         name: "",
@@ -31,13 +32,12 @@ const BoardView = (props) => {
 
     function handleCreateList(e) {
         e.preventDefault();
-        props.createList(newListInfo);
+        props.createList(newListInfo)
+             .then(setNewListInfo({ ...newListInfo, ["name"]: "" }));
     }
 
     function updateNewListInfo(field, value) {
-        const copyNewListInfo = Object.assign({}, newListInfo);
-        copyNewListInfo[field] = value;
-        setNewListInfo(copyNewListInfo);
+        setNewListInfo({...newListInfo, [field]: value});
     }
 
 
@@ -63,26 +63,11 @@ const BoardView = (props) => {
 
         copyBoardInfo[field] = value;
         setBoardInfo(copyBoardInfo);
-        updateDebounce(copyBoardInfo);
+        updateBoardInfoDebounce('board', copyBoardInfo);
     }
 
 
-    function debounce(interval) {
-        let timeout;
-
-        return (arg) => {
-            const fnCall = () => {
-                timeout = null;
-                props.updateBoard(arg);
-            }
-
-            clearTimeout(timeout);
-            timeout = setTimeout(fnCall, interval);
-        }
-    }
-
-
-    // Takes in an array of Lists
+    // Takes in an array of Lists to update Cards
     // because if two or more Lists need to be updated simultaneously
     function updateLists(arrLists) {
         const copyAllLists = Object.assign({}, allLists);
@@ -90,6 +75,30 @@ const BoardView = (props) => {
             copyAllLists[list.id] = list;
         });
         setAllLists(copyAllLists);
+        updateAllListsDebounce('lists', arrLists);
+    }
+
+
+    function debounce(interval) {
+        let timeout;
+
+        return (type, arg) => {
+            const fnCall = () => {
+                timeout = null;
+
+                switch(type) {
+                    case 'board':
+                        props.updateBoard(arg);
+                        break;
+                    case 'lists':
+                        props.updateListsArr(arg);
+                        break;
+                }
+                
+            }
+            clearTimeout(timeout);
+            timeout = setTimeout(fnCall, interval);
+        }
     }
 
 
@@ -188,7 +197,7 @@ const BoardView = (props) => {
 
                             {
                                 !showNewListForm ? (
-                                    <div className="list_add-text" onClick={() => setShowNewListForm(true)}>+ Add another list</div>
+                                    <div className="list_add-text" onClick={() => setShowNewListForm(true)}>+ Add list</div>
                                 ) : (
                                     <form className="list_add-form" onSubmit={(e) => handleCreateList(e)}>
                                         <div className="form_row">
@@ -250,7 +259,8 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
     return {
         updateBoard: (board) => dispatch(updateBoard(board)),
-        createList: (list) => dispatch(createList(list))
+        createList: (list) => dispatch(createList(list)),
+        updateListsArr: (arr) => dispatch(updateListsArr(arr))
     }
 }
 

@@ -6,7 +6,7 @@ import { modalClear } from '../../../actions/modals_action';
 
 
 
-const newBoard = (props) => {
+const modalNewBoard = (props) => {
     const [newBoard, setNewBoard] = useState({
         name: '',
         userId: props.userId
@@ -14,9 +14,7 @@ const newBoard = (props) => {
 
 
     function updateNewBoard(field, value) {
-        const copyNewBoard = Object.assign({}, newBoard);
-        copyNewBoard[field] = value;
-        setNewBoard(copyNewBoard);
+        setNewBoard({ ...newBoard, [field]: value });
     }
 
     function handleCreateBoard(e) {
@@ -58,4 +56,4 @@ const mdp = (dispatch) => {
     }
 }
 
-export default connect(msp, mdp)(newBoard);
+export default connect(msp, mdp)(modalNewBoard);

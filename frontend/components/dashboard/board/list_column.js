@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { createCard } from '../../../actions/card_actions';
+import { updateList } from '../../../actions/list_actions';
 import CardRows from './card_rows';
 
 const Container = styled.div``;
@@ -23,14 +24,12 @@ const ListColumn = (props) => {
     const [listInfo, setListInfo] = useState(list);
 
     function updateListInfo(field, value){
-        const copyListInfo = Object.assign(listInfo);
-        copyListInfo[field] = value;
-        setListInfo(copyListInfo);
+        setListInfo({...listInfo, [field]: value});
     }
 
     function handleListUpdate(e) {
         e.preventDefault();
-        console.log(listInfo);
+        props.updateList(listInfo);
     }
 
 
@@ -42,20 +41,24 @@ const ListColumn = (props) => {
     });
 
     function updateNewCardInfo(field, value) {
-        const copyNewCardInfo = Object.assign({}, newCardInfo);
-        copyNewCardInfo[field] = value;
-        setNewCardInfo(copyNewCardInfo);
+        setNewCardInfo({ ...newCardInfo, [field]: value});
     }
 
     function handleCreateCard(e) {
         e.preventDefault();
-        props.createCard(newCardInfo);
+        props.createCard(newCardInfo)
+             .then(() => {
+                 setNewCardInfo({
+                     name: "",
+                     listId: list.id
+                 })
+             });
     }
 
     
     // ComponentDidUpdate
     useEffect(() => {
-        if (listInfo !== list.id) {
+        if (listInfo !== list) {
             setListInfo(list);
             updateNewCardInfo('listId', list.id);
         }
@@ -84,7 +87,7 @@ const ListColumn = (props) => {
                                 </>
                             ) : (
                                 <>
-                                <form className="list_title-form">
+                                <form className="list_title-form" onSubmit={(e) => handleListUpdate(e)}>
                                     <input type="text"
                                             placeholder="Title can't be blank"
                                             value={listInfo.name}
@@ -115,7 +118,7 @@ const ListColumn = (props) => {
  
                     {
                         !showNewCardForm ? (
-                            <div className="card_add-text" onClick={() => setShowNewCardForm(true)}>+ Add another card</div>
+                            <div className="card_add-text" onClick={() => setShowNewCardForm(true)}>+ Add card</div>
                         ) : (
                             <form className="card_add-form" onSubmit={(e) => handleCreateCard(e)}>
                                 <div className="form_row">
@@ -125,7 +128,7 @@ const ListColumn = (props) => {
                                         value={newCardInfo.name}></textarea>
                                 </div>
                                 <div className="form_row">
-                                    <input type="submit" value="Add List" />
+                                    <input type="submit" value="Add Card" />
                                     <span className="form_close material-icons" onClick={() => setShowNewCardForm(false)}>clear</span>
                                 </div>
                             </form>
@@ -144,7 +147,8 @@ const ListColumn = (props) => {
 
 const mdp = (dispatch) => {
     return {
-        createCard: (card) => dispatch(createCard(card))
+        createCard: (card) => dispatch(createCard(card)),
+        updateList: (list) => dispatch(updateList(list))
     }
 }
 

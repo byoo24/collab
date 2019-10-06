@@ -6,6 +6,17 @@ export const createList = (list) => {
 }
 
 
+export const updateList = (list) => {
+    const listId = list.id;
+    return axios.put(`/api/v1/lists/${listId}`, list);
+}
+
+
+export const updateListsArr = (listsArr) => {
+    return axios.put('/api/v1/lists', listsArr);
+}
+
+
 // export const createList = (input) => {
 //     const { name, boardId, listIds } = input;
     

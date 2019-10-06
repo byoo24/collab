@@ -31,6 +31,48 @@ export default (app, db) => {
             });
         });
     });
+
+
+    app.put('/api/v1/lists/:listId', (req, res) => {
+        const errors = {};
+
+        if (!req.body.id) {
+            errors.listId = "List ID is missing";
+            return res.status(400).json(errors);
+        }
+
+        db.list.findByPk(req.body.id)
+            .then(list => {
+                if (!list) {
+                    errors.list = "List wasn't found";
+                    return res.status(400).json(errors);
+                }
+                list.update(req.body);
+
+                return res.json({
+                    list
+                });
+            })
+    });
+
+    app.put('/api/v1/lists', async (req, res) => {
+
+        const promises = [];
+        const listsArr = req.body;
+
+        for (let i = 0; i < listsArr.length; i++) {
+            const updateList = listsArr[i];
+            const listId = updateList.id;
+
+            await db.list.findByPk(listId)
+                .then(list => {
+                    list.update(updateList);
+                    promises.push(list);
+                })
+        }
+
+        return await res.json(promises);
+    });
 }
 
 

@@ -25,7 +25,7 @@ export const receiveUpdatedBoard = ({ board }) => {
 export const createBoard = input => dispatch =>(
     APIUtil.createBoard(input).then(res => {
         const { data, errors } = res;
-        debugger
+        
         if (errors) {
             console.log(errors);
         } else {

@@ -38,6 +38,14 @@ const Login = (props) => {
         props.login(userInfo);
     }
 
+    const handleGuestLogin = (e) => {
+        e.preventDefault();
+        props.login({
+            username: "demouser",
+            password: "password123"
+        })
+    }
+
     const uiErrors = props.isErrors ? (
         <div className="ui error message visible">
             <span className="ui left aligned header">
@@ -103,12 +111,12 @@ const Login = (props) => {
                             </div>
 
                             <input type="submit" className="ui fluid large blue submit button" value="Login" />
-
                         </div>
                     </form>
 
                     <div className="ui message">
-                        New here? <Link to="/signup">Signup</Link>
+                        <div>New here? <Link to="/signup">Signup</Link></div>
+                        <div>Guest Account? <a href="" onClick={(e) => handleGuestLogin(e)}>Demo Login</a></div>
                     </div>
                 </div>
             </div>
