@@ -4,7 +4,7 @@ module.exports = {
     context: __dirname,
     entry: './frontend/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist', 'js'),
+        path: path.resolve(__dirname, 'public', 'js'),
         filename: 'bundle.js'
     },
     module: {

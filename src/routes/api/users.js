@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import keys from '../../config/keys/keys';
+import keys from '../../../config/keys/keys';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import validateRegisterInput from '../../validation/register';

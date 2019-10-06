@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 import typeDefs from './graphql/graphql-types';
 import resolvers from './graphql/graphql-resolvers';
@@ -22,7 +23,7 @@ export const server = new ApolloServer({
 
 const app = express();
 
-app.use(express.static("dist"));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Body Parser Middleware
 app.use(express.urlencoded({ extended: false }));
