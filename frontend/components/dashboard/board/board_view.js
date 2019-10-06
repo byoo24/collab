@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-
 import { updateBoard } from '../../../actions/board_actions';
 import { createList } from '../../../actions/list_actions';
-
 import ListColumn from './list_column';
+
 
 const bgColor = {
     backgroundColor: 'rgb(0, 121, 191)'
 }
-
 const Container = styled.div``;
 
 
@@ -42,7 +40,7 @@ const BoardView = (props) => {
         setNewListInfo(copyNewListInfo);
     }
 
-    
+
     // ComponentDidUpdate
     useEffect(() => {
         if (boardInfo !== board) {
@@ -95,8 +93,6 @@ const BoardView = (props) => {
     }
 
 
-
-
     function onDragEnd(result) {
         const { destination, source, draggableId, type } = result;
 
@@ -110,7 +106,6 @@ const BoardView = (props) => {
             destination.index === source.index) {
             return;
         }
-
 
         // Dragged item is a List
         if (type === 'lists') {
@@ -176,51 +171,44 @@ const BoardView = (props) => {
                                         const cardOrder = list.cardIds;
                                         const cards = cardOrder.map(cardId => allCards[cardId]);
 
-                                        return <ListColumn key={list.id} index={idx} list={list} cards={cards} />;
+                                        return (
+                                            <ListColumn key={list.id} index={idx} list={list} cards={cards} />
+                                        );
                                     })}
 
-
-
-
-                                    {/* Add New List */}
-                                    <Draggable draggableId="add-list-drag" index={listOrder.length} isDragDisabled={true} type="dont-move">   
-                                        {(provided) => (
-                                            <div className="list_wrap" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <div className="list_content">
-
-                                                    {
-                                                        !showNewListForm ? (
-                                                            <div onClick={() => setShowNewListForm(true)}>+ Add another list</div>
-                                                        ) : (
-                                                            <form onSubmit={(e) => handleCreateList(e)}>
-                                                                <div className="form_row">
-                                                                    <input type="text"
-                                                                        placeholder="Enter list title"
-                                                                        value={newListInfo.name}
-                                                                        onChange={(e) => updateNewListInfo('name', e.target.value)} />
-                                                                </div>
-                                                                <div className="form_row">
-                                                                    <input type="submit"
-                                                                        value="Add List" />
-                                                                    <span onClick={() => setShowNewListForm(false)}>Close</span>
-                                                                </div>
-                                                            </form>
-                                                        )
-                                                    }
-                                                    
-                                                    
-                                                </div>
-
-                                            </div>
-                                        )}
-                                    </Draggable>
                                     {provided.placeholder}
                                 </Container>
                             )}
                         </Droppable>
                     </DragDropContext>
+
+
+                    <div className="list_add">
+                        <div className="list_add-wrap">
+
+                            {
+                                !showNewListForm ? (
+                                    <div className="list_add-text" onClick={() => setShowNewListForm(true)}>+ Add another list</div>
+                                ) : (
+                                    <form className="list_add-form" onSubmit={(e) => handleCreateList(e)}>
+                                        <div className="form_row">
+                                            <input type="text"
+                                                placeholder="Enter list title"
+                                                value={newListInfo.name}
+                                                onChange={(e) => updateNewListInfo('name', e.target.value)} />
+                                        </div>
+                                        <div className="form_row">
+                                            <input type="submit"
+                                                value="Add List" />
+
+                                            <i className="form_close material-icons" onClick={() => setShowNewListForm(false)}>clear</i>
+                                        </div>
+                                    </form>
+                                )
+                            }
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
     )

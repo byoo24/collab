@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
 import { createBoard } from '../../../actions/board_actions';
 import { updateSession } from '../../../actions/session_actions';
+import { modalNewBoard } from '../../../actions/modals_action';
 
-import BoardsDraggableItem from './boards_draggable_item';
+import BoardsIndexItem from './boards_index_item';
 
 
 
@@ -79,25 +79,26 @@ const BoardContext = (props) => {
 
     return(
         <div className="boards_index-main">
-            <div className="board_index-container">
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <h2>Personal Boards</h2>
-                    <Droppable droppableId="personal-boards" direction="horizontal">
-                        {(provided) => (
-                            <PersonalBoards
-                                className="boards_index-personal"
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                            >
-                                {personalBoards.map((boardId, idx) => {
-                                    const board = boards[boardId];
-                                    return <BoardsDraggableItem key={board.id} board={board} index={idx} />;
-                                })}
-                            </PersonalBoards>
-                        )}
-                    </Droppable>
-                    {/* <BoardsDropZone id="personal-boards" user={userInfo} boards={personalBoards}/> */}
-                </DragDropContext>
+            <div className="boards_index-container">
+                <div className="index_header">
+                    <span className="index_title">Personal Boards</span>
+                    <span className="index_add ui icon">
+                        <i className="material-icons">library_add</i>
+                    </span>
+                </div>
+                
+                <div className="boards_index-content">
+                    <PersonalBoards className="boards_index-drop">
+                        {personalBoards.map((boardId, idx) => {
+                            const board = boards[boardId];
+                            return <BoardsIndexItem key={board.id} board={board} index={idx} />;
+                        })}
+                        <div className="boards_index-add" onClick={props.modalNewBoard}>
+                            <span>Create new board</span>
+                        </div>
+                    </PersonalBoards>
+                    
+                </div>
             </div>
         </div>
     )
@@ -123,7 +124,8 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         createBoard: (board) => dispatch(createBoard(board)),
-        updateSession: (user) => dispatch(updateSession(user))
+        updateSession: (user) => dispatch(updateSession(user)),
+        modalNewBoard: () => dispatch(modalNewBoard())
     }
 }
 
