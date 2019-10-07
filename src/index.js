@@ -7,7 +7,6 @@ import db from './models';
 import passport from 'passport';
 
 
-
 import apiUserRoutes from './routes/api/users';
 import apiBoardRoutes from './routes/api/boards';
 import apiListRoutes from './routes/api/lists';
