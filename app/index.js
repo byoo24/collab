@@ -21,6 +21,8 @@ var _models = _interopRequireDefault(require("./models"));
 
 var _passport = _interopRequireDefault(require("passport"));
 
+var _http = _interopRequireDefault(require("http"));
+
 var _users = _interopRequireDefault(require("./routes/api/users"));
 
 var _boards = _interopRequireDefault(require("./routes/api/boards"));
@@ -66,9 +68,9 @@ var port = process.env.PORT || 4000;
 _models["default"].sequelize.sync({
   force: eraseDatabaseOnSync
 }).then(function () {
-  app.listen({
+  _http["default"].createServer(app).listen({
     port: port
   }, function () {
-    return console.log("\uD83D\uDE80 Server ready at http://localhost:4000".concat(server.graphqlPath));
+    return console.log("\uD83D\uDE80 Server ready at http://localhost:".concat(port));
   });
 });

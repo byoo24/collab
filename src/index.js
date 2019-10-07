@@ -29,10 +29,6 @@ const app = express();
 app.use(express.static(path.join(__dirname, "../public")));
 
 // Body Parser Middleware
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(passport.initialize());
