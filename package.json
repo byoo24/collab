@@ -4,8 +4,8 @@
   "description": "trello clone",
   "main": "index.js",
   "engines": {
-    "node": "0.8.x",
-    "npm": "1.1.x"
+    "node": "11.10.1",
+    "npm": "6.7.0"
   },
   "scripts": {
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
