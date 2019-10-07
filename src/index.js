@@ -6,7 +6,6 @@ import resolvers from './graphql/graphql-resolvers';
 import db from './models';
 import passport from 'passport';
 
-import http from 'http';
 
 
 import apiUserRoutes from './routes/api/users';
@@ -50,7 +49,7 @@ server.applyMiddleware({ app });
 const eraseDatabaseOnSync = false;
 const port = process.env.PORT || 4000;
 db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
-    http.createServer(app).listen({ port }, () =>
+    app.listen({ port }, () =>
         console.log(`🚀 Server ready at http://localhost:${port}`)
     );
 });
