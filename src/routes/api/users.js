@@ -54,6 +54,13 @@ export default (app, db) => {
 
 
     app.post('/api/v1/login', (req, res) => {
+        console.log("=====================");
+        console.log("=====================");
+        console.log("=====================");
+        console.log("LOG IN");
+        console.log("=====================");
+        console.log("=====================");
+        console.log("=====================");
         const { errors, isValid } = validateLoginInput(req.body);
 
         if (!isValid) {
@@ -65,6 +72,13 @@ export default (app, db) => {
 
         db.user.findOne({ username })
                .then(user => {
+                   console.log("=====================");
+                   console.log("=====================");
+                   console.log("=====================");
+                   console.log(user);
+                   console.log("=====================");
+                   console.log("=====================");
+                   console.log("=====================");
                    if (!user) {
                        errors.username = "Incorrect username or password";
                        return res.status(400).json(errors);
