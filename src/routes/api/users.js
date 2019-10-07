@@ -9,6 +9,14 @@ import validateLoginInput from '../../validation/login';
 
 export default (app, db) => {
     app.post('/api/v1/signup', (req, res) => {
+        console.log("=====================");
+        console.log("=====================");
+        console.log("=====================");
+        console.log("HIT SIGN UP");
+        console.log("=====================");
+        console.log("=====================");
+        console.log("=====================");
+
         const { errors, isValid } = validateRegisterInput(req.body);
 
         if (!isValid) {

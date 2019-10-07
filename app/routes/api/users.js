@@ -25,6 +25,14 @@ var _login = _interopRequireDefault(require("../../validation/login"));
 
 var _default = function _default(app, db) {
   app.post('/api/v1/signup', function (req, res) {
+    console.log("=====================");
+    console.log("=====================");
+    console.log("=====================");
+    console.log("HIT SIGN UP");
+    console.log("=====================");
+    console.log("=====================");
+    console.log("=====================");
+
     var _validateRegisterInpu = (0, _register["default"])(req.body),
         errors = _validateRegisterInpu.errors,
         isValid = _validateRegisterInpu.isValid;

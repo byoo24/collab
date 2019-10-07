@@ -18,7 +18,7 @@
     "dev": "NODE_ENV=development npm-run-all server",
     "clean": "rimraf app",
     "build": "babel ./src --out-dir app",
-    "prod": "NODE_ENV=development npm-run-all clean build server:prod"
+    "prod": "npm-run-all clean build server:prod"
   },
   "keywords": [],
   "author": "",
