@@ -13,7 +13,7 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
-var _keys = _interopRequireDefault(require("../../../config/keys/keys"));
+var _keys = _interopRequireDefault(require("../../keys/keys"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
