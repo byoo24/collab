@@ -4,19 +4,20 @@
   "description": "trello clone",
   "main": "index.js",
   "engines": {
-    "node": "11.10.1"
+    "node": "0.8.x",
+    "npm": "1.1.x"
   },
   "scripts": {
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
     "webpack": "webpack --watch ---open --config webpack.dev.js",
     "webpack:prod": "webpack --config webpack.prod.js",
-    "start": "node ./app/index",
+    "start": "npm run prod",
     "server": "babel-node ./src/index",
     "server:prod": "node ./app/index",
     "dev": "NODE_ENV=development npm-run-all server",
     "clean": "rimraf app",
     "build": "babel ./src --out-dir app",
-    "prod": "NODE_ENV=production npm-run-all clean build server:prod"
+    "prod": "NODE_ENV=development npm-run-all clean build server:prod"
   },
   "keywords": [],
   "author": "",
