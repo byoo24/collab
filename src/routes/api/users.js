@@ -42,6 +42,7 @@ export default (app, db) => {
                                .then(user => {
 
                                     jwtSign(res, user);
+                                    return resjson(user);
 
                                 })
                                .catch(err => console.log(err));
@@ -72,13 +73,7 @@ export default (app, db) => {
 
         db.user.findOne({ username })
                .then(user => {
-                   console.log("=====================");
-                   console.log("=====================");
-                   console.log("=====================");
-                   console.log(user);
-                   console.log("=====================");
-                   console.log("=====================");
-                   console.log("=====================");
+                   
                    if (!user) {
                        errors.username = "Incorrect username or password";
                        return res.status(400).json(errors);
@@ -88,7 +83,16 @@ export default (app, db) => {
                          .then(isMatch => {
                              if (isMatch) {
 
-                                    jwtSign(res, user);
+                                 console.log("=====================");
+                                 console.log("=====================");
+                                 console.log("=====================");
+                                 console.log(isMatch);
+                                 console.log("=====================");
+                                 console.log("=====================");
+                                 console.log("=====================");
+
+                                jwtSign(res, user);
+                                return resjson(user);
 
                             } else {
                                 errors.password = "Incorrect username or password";
