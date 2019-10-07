@@ -13,10 +13,10 @@
     "start": "npm run prod",
     "server": "babel-node ./src/index",
     "server:prod": "node ./app/index",
-    "dev": "npm-run-all server",
+    "dev": "NODE_ENV=development npm-run-all server",
     "clean": "rimraf app",
     "build": "babel ./src --out-dir app",
-    "prod": "NODE_ENV=development npm-run-all clean build server:prod"
+    "prod": "NODE_ENV=production npm-run-all clean build server:prod"
   },
   "keywords": [],
   "author": "",
