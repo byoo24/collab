@@ -1,8 +1,11 @@
 {
   "name": "collab",
   "version": "1.0.0",
-  "description": "",
+  "description": "trello clone",
   "main": "index.js",
+  "engines": {
+    "node": "11.10.1"
+  },
   "scripts": {
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
     "webpack": "webpack --watch ---open --config webpack.dev.js",
@@ -13,12 +16,17 @@
     "dev": "npm-run-all server",
     "clean": "rimraf app",
     "build": "babel ./src --out-dir app",
-    "prod": "npm-run-all clean build server:prod"
+    "prod": "NODE_ENV=development npm-run-all clean build server:prod"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "apollo-boost": "^0.4.4",
     "apollo-server-express": "^2.9.3",
@@ -30,6 +38,7 @@
     "graphql": "^14.5.4",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
+    "merge-graphql-schemas": "^1.7.0",
     "npm-run-all": "^4.1.5",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
@@ -45,6 +54,7 @@
     "redux-thunk": "^2.3.0",
     "rimraf": "^3.0.0",
     "sequelize": "^5.18.2",
+    "sequelize-cli": "^5.5.1",
     "styled-components": "^4.4.0",
     "uuid": "^3.3.3",
     "validator": "^11.1.0",
@@ -53,15 +63,8 @@
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.0",
-    "@babel/node": "^7.6.1",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "css-loader": "^3.2.0",
-    "merge-graphql-schemas": "^1.7.0",
-    "nodemon": "^1.19.2",
-    "sequelize-cli": "^5.5.1"
+    "nodemon": "^1.19.2"
   }
 }
