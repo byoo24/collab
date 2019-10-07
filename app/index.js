@@ -54,6 +54,9 @@ app.use(_passport["default"].initialize()); // app.use('/api/users', userRoutes)
 (0, _boards["default"])(app, _models["default"]);
 (0, _lists["default"])(app, _models["default"]);
 (0, _cards["default"])(app, _models["default"]);
+app.get('/', function (req, res) {
+  res.render('index');
+});
 server.applyMiddleware({
   app: app
 });
