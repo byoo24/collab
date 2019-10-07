@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
+    "webpack": "webpack --watch ---open --config webpack.dev.js",
+    "webpack:prod": "webpack --config webpack.prod.js",
     "start": "npm run prod",
-    "server": "babel-node ./src/index.js",
-    "server:prod": "node ./app/index.js",
-    "dev": "NODE_ENV=development npm-run-all server",
+    "server": "babel-node ./src/index",
+    "server:prod": "node ./app/index",
+    "dev": "npm-run-all server",
     "clean": "rimraf app",
     "build": "babel ./src --out-dir app",
-    "prod": "NODE_ENV=production npm-run-all clean build server:prod"
+    "prod": "npm-run-all clean build server:prod"
   },
   "keywords": [],
   "author": "",
