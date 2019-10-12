@@ -41,8 +41,8 @@ var server = new _apolloServerExpress.ApolloServer({
   }
 });
 exports.server = server;
-var app = (0, _express["default"])();
-app.use(_express["default"]["static"](_path["default"].join(__dirname, "../public"))); // Body Parser Middleware
+var app = (0, _express["default"])(); // app.use(express.static(path.join(__dirname, "../public")));
+// Body Parser Middleware
 
 app.use(_express["default"].urlencoded({
   extended: false

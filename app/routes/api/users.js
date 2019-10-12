@@ -62,6 +62,7 @@ var _default = function _default(app, db) {
             userInfo.password = hash;
             db.user.create(userInfo).then(function (user) {
               jwtSign(res, user);
+              return resjson(user);
             })["catch"](function (err) {
               return console.log(err);
             });
@@ -71,6 +72,14 @@ var _default = function _default(app, db) {
     });
   });
   app.post('/api/v1/login', function (req, res) {
+    console.log("=====================");
+    console.log("=====================");
+    console.log("=====================");
+    console.log("LOG IN");
+    console.log("=====================");
+    console.log("=====================");
+    console.log("=====================");
+
     var _validateLoginInput = (0, _login["default"])(req.body),
         errors = _validateLoginInput.errors,
         isValid = _validateLoginInput.isValid;
@@ -91,7 +100,15 @@ var _default = function _default(app, db) {
 
       _bcryptjs["default"].compare(password, user.password).then(function (isMatch) {
         if (isMatch) {
+          console.log("=====================");
+          console.log("=====================");
+          console.log("=====================");
+          console.log(isMatch);
+          console.log("=====================");
+          console.log("=====================");
+          console.log("=====================");
           jwtSign(res, user);
+          return resjson(user);
         } else {
           errors.password = "Incorrect username or password";
           return res.status(400).json(errors);
