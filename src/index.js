@@ -37,9 +37,9 @@ apiBoardRoutes(app, db);
 apiListRoutes(app, db);
 apiCardRoutes(app, db);
 
-app.get('/', (req, res) => {
-    res.render('index');
-})
+// app.get('/', (req, res) => {
+//     res.render('index');
+// })
 
 
 server.applyMiddleware({ app });
