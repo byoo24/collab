@@ -65,8 +65,8 @@ var port = process.env.PORT || 4000;
 
 _models["default"].sequelize.sync({
   force: eraseDatabaseOnSync
-}).then(function () {
-  server.listen({
+}).then(function (res) {
+  app.listen({
     port: port
   }, function () {
     return console.log("\uD83D\uDE80 Server ready at http://localhost:".concat(port));
