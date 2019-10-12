@@ -11,7 +11,6 @@
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config",
     "webpack": "webpack --watch ---open --config webpack.dev.js",
     "webpack:prod": "webpack --config webpack.prod.js",
-    "heroku-postbuild": "webpack --config webpack.prod.js",
     "server": "babel-node ./src/index",
     "server:prod": "node ./app/index",
     "dev": "NODE_ENV=development npm-run-all server",
