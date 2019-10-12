@@ -48,7 +48,7 @@ server.applyMiddleware({ app });
 const eraseDatabaseOnSync = false;
 const port = process.env.PORT || 4000;
 db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
-    app.listen({ port }, () =>
+    server.listen({ port }, () =>
         console.log(`🚀 Server ready at http://localhost:${port}`)
     );
 });
