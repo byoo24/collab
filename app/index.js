@@ -41,8 +41,8 @@ var server = new _apolloServerExpress.ApolloServer({
   }
 });
 exports.server = server;
-var app = (0, _express["default"])(); // app.use(express.static(path.join(__dirname, "../public")));
-// Body Parser Middleware
+var app = (0, _express["default"])();
+app.use(_express["default"]["static"](_path["default"].join(__dirname, "../public"))); // Body Parser Middleware
 
 app.use(_express["default"].urlencoded({
   extended: false
@@ -53,10 +53,10 @@ app.use(_passport["default"].initialize()); // app.use('/api/users', userRoutes)
 (0, _users["default"])(app, _models["default"]);
 (0, _boards["default"])(app, _models["default"]);
 (0, _lists["default"])(app, _models["default"]);
-(0, _cards["default"])(app, _models["default"]); // app.get('/', (req, res) => {
-//     res.render('index');
-// })
-
+(0, _cards["default"])(app, _models["default"]);
+app.get('/', function (req, res) {
+  res.render('index');
+});
 server.applyMiddleware({
   app: app
 });
@@ -65,7 +65,7 @@ var port = process.env.PORT || 4000;
 
 _models["default"].sequelize.sync({
   force: eraseDatabaseOnSync
-}).then(function (res) {
+}).then(function () {
   app.listen({
     port: port
   }, function () {

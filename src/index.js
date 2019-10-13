@@ -24,7 +24,7 @@ export const server = new ApolloServer({
 
 const app = express();
 
-// app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Body Parser Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -37,9 +37,9 @@ apiBoardRoutes(app, db);
 apiListRoutes(app, db);
 apiCardRoutes(app, db);
 
-// app.get('/', (req, res) => {
-//     res.render('index');
-// })
+app.get('/', (req, res) => {
+    res.render('index');
+})
 
 
 server.applyMiddleware({ app });
@@ -47,7 +47,7 @@ server.applyMiddleware({ app });
 
 const eraseDatabaseOnSync = false;
 const port = process.env.PORT || 4000;
-db.sequelize.sync({ force: eraseDatabaseOnSync }).then((res) => {
+db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
     app.listen({ port }, () =>
         console.log(`🚀 Server ready at http://localhost:${port}`)
     );

@@ -19,7 +19,7 @@
     "prod": "npm-run-all clean build server:prod",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
-    "start": "concurrently \"npm run prod\" \"npm run frontend\""
+    "start": "concurrently \"npm run webpack:prod\" \"npm run prod\""
   },
   "keywords": [],
   "author": "",
