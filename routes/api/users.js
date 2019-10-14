@@ -79,13 +79,12 @@ module.exports = (app, db) => {
                                 console.log("=====================");
                                 console.log("=====================");
                                 console.log("=====================");
-                                console.log(isMatch);
+                                console.log(user);
                                 console.log("=====================");
                                 console.log("=====================");
                                 console.log("=====================");
 
-                                jwtSign(res, user);
-                                return resjson(user);
+                                return jwtSign(res, user.dataValues);
 
                             } else {
                                 errors.password = "Incorrect username or password";

@@ -4,6 +4,7 @@
 @import 'dashboard/board_nav.css';
 @import 'dashboard/board_index.css';
 @import 'dashboard/board_view.css';
+@import 'semantic-ui/semantic.css';
 
 
 body {

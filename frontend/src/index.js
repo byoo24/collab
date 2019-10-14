@@ -7,6 +7,8 @@ import Root from './components/root';
 
 import { logout } from './actions/session_actions';
 
+import './css/style.css';
+
 
 if (process.env.NODE_ENV !== 'production') {
     console.log('Entered development mode!');
