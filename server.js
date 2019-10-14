@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const typeDefs = require('./graphql/graphql-types');
