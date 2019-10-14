@@ -1,41 +1,37 @@
-import express from "express";
-import { ApolloServer, gql } from "apollo-server-express";
-import faker from "faker";
-import times from "lodash.times";
-import random from "lodash.random";
-import typeDefs from "./schema";
-import resolvers from "./resolvers";
-import db from "./models";
+const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
+const typeDefs = require('./graphql/graphql-types');
+const resolvers = require('./graphql/graphql-resolvers');
+const db = require('./models/index');
 
-const server = new ApolloServer({
-    typeDefs: gql(typeDefs),
+
+
+const server = new ApolloServer({ 
+    typeDefs: gql(typeDefs), 
     resolvers,
     context: { db }
 });
 
 const app = express();
+// app.use(express.static(path.join(__dirname, "../public")));
+
+
+
+// Body Parser Middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 server.applyMiddleware({ app });
 
-app.use(express.static("app/public"));
 
-db.sequelize.sync().then(() => {
-    // populate author table with dummy data
-    db.author.bulkCreate(
-        times(10, () => ({
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
-        }))
-    );
-    // populate post table with dummy data
-    db.post.bulkCreate(
-        times(10, () => ({
-            title: faker.lorem.sentence(),
-            content: faker.lorem.paragraph(),
-            authorId: random(1, 10)
-        }))
-    );
-
-    app.listen({ port: 4000 }, () =>
-        console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+const eraseDatabaseOnSync = true;
+const port = process.env.PORT || 4000;
+db.sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
+    app.listen({ port }, () =>
+        console.log(`🚀 Server ready at http://localhost:${port}`)
     );
 });
+// app.listen({ port }, () => 
+//     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+// );
+
