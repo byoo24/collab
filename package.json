@@ -4,18 +4,28 @@
   "description": "trello clone",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "server": "node server.js",
+    "debug": "node --inspect server.js",
+    "frontend-install": "npm install --prefix frontend",
+    "frontend": "npm start --prefix frontend",
+    "start": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^2.9.6",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.7.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.19.6",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "validator": "^11.1.0"
   },
   "devDependencies": {}
 }

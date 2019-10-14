@@ -3,6 +3,12 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const typeDefs = require('./graphql/graphql-types');
 const resolvers = require('./graphql/graphql-resolvers');
 const db = require('./models/index');
+const passport = require('passport');
+
+const apiUserRoutes = require('./routes/api/users');
+const apiBoardRoutes = require('./routes/api/boards');
+const apiListRoutes = require('./routes/api/lists');
+const apiCardRoutes = require('./routes/api/cards');
 
 
 
@@ -12,14 +18,21 @@ const server = new ApolloServer({
     context: { db }
 });
 
+
 const app = express();
 // app.use(express.static(path.join(__dirname, "../public")));
-
 
 
 // Body Parser Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(passport.initialize());
+
+// app.use('/api/users', userRoutes);
+apiUserRoutes(app, db);
+apiBoardRoutes(app, db);
+apiListRoutes(app, db);
+apiCardRoutes(app, db);
 
 server.applyMiddleware({ app });
 
