@@ -19,10 +19,21 @@ let sequelize;
 
 
 
-sequelize = new Sequelize(config.database, config.username, config.password, {
-    host: config.host,
-    dialect: config.dialect
-});
+
+
+if (process.env.HEROKU_POSTGRESQL_RED_URL) {
+    // the application is executed on Heroku ... use the postgres database
+    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_RED_URL, {
+        dialect: 'postgres',
+        protocol: 'postgres',
+        logging: true
+    });
+} else {
+    sequelize = new Sequelize(config.database, config.username, config.password, {
+        host: config.host,
+        dialect: config.dialect
+    });
+}
 
 
 
