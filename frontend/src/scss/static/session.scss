@@ -1,0 +1,100 @@
+.session_container {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 2em 1em 0;
+
+    @media screen and (min-width: 900px) {
+        max-width: 890px;
+    }
+
+    .session_form {
+        margin: 0 auto;
+        font-size: 1.125em;
+        
+        @media screen and (min-width: 900px) {
+            max-width: 585px;
+        }
+    }
+
+    .session_header {
+        margin-bottom: 2em;
+    }
+
+    .session_title {
+        font-size: 2.5em;
+        font-weight: _font(bold);
+    }
+
+    .session_account,
+    .guest_account {
+        display: block;
+        margin: 0.5em 0;
+        color: _palette(site, links);
+        text-decoration: underline;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.4em;
+        
+
+        &.required_field:after {
+            content: "*";
+            font-size: 1.25em;
+            padding-left: 0.25em;
+            color: red;
+        }
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        box-sizing: border-box;
+        width: 100%;
+        background: #EDEFF0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: .5em;
+        margin-bottom: 1.2em;
+
+        &.error {
+            background: #FBEDEB;
+            border: 1px solid #EC9488;
+        }
+
+        &:focus {
+            border-color: #A5ACB0;
+            outline: none;
+            box-shadow: 0 0 6px #CDD2D4;
+        }
+    }
+
+    input[type="submit"] {
+        font-size: 1.05em;
+        font-weight: _font(bold);
+        color: #fff;
+        background: #61BD4F;
+        border: 0;
+        box-shadow: 0 2px 0 #3F6F21;
+        cursor: pointer;
+    }
+    
+    .error_field {
+        display: inline-block;
+        box-sizing: border-box;
+        font-size: 14px;
+        padding: 0.75em 1em;
+        margin-top: -1em;
+        margin-bottom: 0.6em;
+        max-width: 400px;
+        width: 100%;
+        color: #fbedeb;
+        background: #EB5A46;
+        border-radius: 4px;
+        border: 0;
+        
+        
+    
+    }
+}

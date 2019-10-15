@@ -1,0 +1,87 @@
+.container {
+    width: 100%;
+    padding-right: 1em;
+    padding-left: 1em;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media screen and (min-width: _screenSize(small)) {
+        max-width: 540px;
+    }
+
+    @media screen and (min-width: _screenSize(medium)) {
+        max-width: 720px;
+    }
+
+    @media screen and (min-width: _screenSize(large)) {
+        max-width: 960px;
+    }
+
+    @media screen and (min-width: _screenSize(xlarge)) {
+        max-width: 1140px;
+    }
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.align-items-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        flex: 0 0 #{$i / 12 * 100%};
+        max-width: #{$i / 12 * 100%};
+    }
+
+    @media screen and (min-width: _screenSize(small)) {
+        .col-sm-#{$i} {
+            flex: 0 0 #{$i / 12 * 100%};
+            max-width: #{$i / 12 * 100%};
+        }
+        .offset-sm-#{$i} {
+            margin-left: #{$i / 12 * 100%};
+        }
+    }
+
+    @media screen and (min-width: _screenSize(medium)) {
+        .col-md-#{$i} {
+            flex: 0 0 #{$i / 12 * 100%};
+            max-width: #{$i / 12 * 100%};
+        }
+        .offset-md-#{$i} {
+            margin-left: #{$i / 12 * 100%};
+        }
+    }
+
+    @media screen and (min-width: _screenSize(large)) {
+        .col-lg-#{$i} {
+            flex: 0 0 #{$i / 12 * 100%};
+            max-width: #{$i / 12 * 100%};
+        }
+        .offset-lg-#{$i} {
+            margin-left: #{$i / 12 * 100%};
+        }
+    }
+
+    @media screen and (min-width: _screenSize(xlarge)) {
+        .col-xl-#{$i} {
+            flex: 0 0 #{$i / 12 * 100%};
+            max-width: #{$i / 12 * 100%};
+        }
+        .offset-xl-#{$i} {
+            margin-left: #{$i / 12 * 100%};
+        }
+    }
+}

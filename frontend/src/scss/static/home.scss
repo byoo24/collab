@@ -1,0 +1,39 @@
+.hero {
+    display: flex;
+    align-items: center;
+    color: _palette(hero, color);
+    text-align: center;
+    min-height: 100vh;
+    background: _palette(hero, bg);
+
+    .container{
+        height: 100%;
+    }
+
+    .row {
+        padding-top: 5em;
+        padding-bottom: 1em;
+    }
+
+    .hero_title {
+        font-size: 3em;
+        margin-bottom: 0.65em;
+    }
+
+    .hero_text {
+        font-size: 1.5em;
+        letter-spacing: 2px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    @media screen and (min-width: _screenSize(medium)) {
+        text-align: left;
+    }
+
+    @media screen and (min-width: _screenSize(large)) {
+        text-align: center;
+    }
+}

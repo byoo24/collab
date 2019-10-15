@@ -1,0 +1,55 @@
+// Reset
+@import 'site/reset';
+
+// Global
+@import 'global/variables';
+@import 'global/functions';
+@import 'mixins/mixins';
+
+// Site
+@import 'typography/typography';
+@import 'grid/grid';
+@import 'site/site';
+
+// Navbar
+@import 'navbar/static_nav';
+
+// Static Pages
+@import 'static/home.scss';
+@import 'static/session.scss';
+
+// @import 'static/home_page.scss';
+// @import 'static/signin.scss';
+// @import 'dashboard/board_modal.scss';
+// @import 'dashboard/board_nav.scss';
+// @import 'dashboard/board_index.scss';
+// @import 'dashboard/board_view.scss';
+// @import 'semantic-ui/semantic.css';
+
+
+
+
+#root{
+    height: 100%;
+}
+
+
+.content_wrap{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: inherit;
+    overflow: none;
+}
+
+
+#content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    outline: none;
+    overflow: hidden;
+}
+
+

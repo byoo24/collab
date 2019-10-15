@@ -67,57 +67,60 @@ const Login = (props) => {
 
 
     return (
-        <div className="main-signin">
-            
+        <div className="main_session">
+            <div className="session_container">
+                <div className="session_form">
 
-            <div className="ui center aligned text grid container">
-
-                
-                <div className="twelve wide column">
-
-                    <div className="logo">
-                        <img src="./images/logo-blue.svg" />
-                        <span className="logo-text">Collab</span>
+                    <div className="session_header">
+                        <h1 className="session_title">Log in to Collab</h1>
+                        <span className="session_account">
+                            <Link to="/signup">or create an account</Link>
+                        </span>
+                        <span className="guest_account">
+                            <Link to="/" onClick={(e) => handleGuestLogin(e)}>or use guest account</Link>
+                        </span>
                     </div>
-                    
-                    <form className="ui large form" onSubmit={(e) => handleSubmit(e)}>
 
-                        {uiErrors}
+                    <form className="log_in_container" onSubmit={(e) => handleSubmit(e)}>
+                        <label for="username" className="required_field">
+                            Username
+                        </label>
+                        <input
+                            type="text"
+                            name="username"
+                            id="username"
+                            tabIndex="0"
+                            autoCorrect="off"
+                            spellCheck="false"
+                            autoCapitalize="off"
+                            placeholder="e.g., hermione"
+                            value={userInfo.username}
+                            className={errors.username ? 'error' : ''}
+                            onChange={e => updateUserInfo("username", e.target.value)}
+                        />
+                        {errors.username ? (
+                            <div className="error_field">{errors.username}</div>
+                        ) : (null)}
 
-                        <div className="ui raised segment">
+                        <label for="password" className="required_field">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="e.g., *********"
+                            value={userInfo.password}
+                            className={errors.password ? 'error' : ''}
+                            onChange={e => updateUserInfo("password", e.target.value)}
+                        />
+                        {errors.password ? (
+                            <div className="error_field">{errors.password}</div>
+                        ) : (null)}
 
-                            <div className="field">
-                                <div className={`ui left icon input ${errors.username ? 'error' : ''}`}>
-                                    <i className="user icon"></i>
-                                    <input
-                                        type="text"
-                                        placeholder="Username"
-                                        value={userInfo.username}
-                                        onChange={e => updateUserInfo("username", e.target.value)}
-                                    />
-                                </div>
-                            </div>
+                        <input type="submit" value="Log In" />
 
-                            <div className="field">
-                                <div className={`ui left icon input ${errors.password ? 'error' : ''}`}>
-                                    <i className="lock alternate icon"></i>
-                                    <input
-                                        type="password"
-                                        placeholder="Password"
-                                        value={userInfo.password}
-                                        onChange={e => updateUserInfo("password", e.target.value)}
-                                    />
-                                </div>
-                            </div>
-
-                            <input type="submit" className="ui fluid large blue submit button" value="Login" />
-                        </div>
                     </form>
-
-                    <div className="ui message">
-                        <div>New here? <Link to="/signup">Signup</Link></div>
-                        <div>Guest Account? <a href="" onClick={(e) => handleGuestLogin(e)}>Demo Login</a></div>
-                    </div>
                 </div>
             </div>
         </div>

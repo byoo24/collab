@@ -1,0 +1,56 @@
+$font: (
+    family:				('Open Sans', Helvetica, sans-serif),
+    family-fixed:		('Courier New', monospace),
+    normal:				400,
+    bold:		        600,
+    extrabold:	        800
+);
+
+
+$breakpoints: (
+    xlarge:   1200px,
+    large:    992px,
+    medium:   768px,
+    small:    576px
+);
+
+
+$palette: (
+    bg: #fff,
+
+    nav: (
+        color: #f2f2f2,
+        bg: #026aa7
+    ),
+
+    site: (
+        text: #172b4d,
+        links: #298FCA
+    ),
+
+    hero: (
+        color: #f2f2f2,
+        bg: #026aa7
+    ),
+
+    boards: (
+        blue: rgb(0, 121, 191),
+        orange: rgb(210, 144, 52),
+        green: rgb(81, 152, 57),
+        red: rgb(176, 70, 50),
+        purple: rgb(137, 96, 158),
+        pink: rgb(205, 90, 145)
+    ),
+
+    btn: (
+        primary: #6d9cee,
+        secondary:#c4c4c4,
+        success: #76c184,
+        danger: #c45a62,
+        warning: #e9af64,
+        info: #17a2b8,
+        light: #f8f9fa,
+        dark: #343a40,
+        misc: #815fb9
+    )
+);

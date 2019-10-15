@@ -7,7 +7,7 @@ import Root from './components/root';
 
 import { logout } from './actions/session_actions';
 
-import './css/style.css';
+import './scss/style.scss';
 
 
 if (process.env.NODE_ENV !== 'production') {
