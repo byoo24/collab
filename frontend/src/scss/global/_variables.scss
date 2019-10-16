@@ -34,12 +34,14 @@ $palette: (
     ),
 
     boards: (
+        text: #f2f2f2,
         blue: rgb(0, 121, 191),
         orange: rgb(210, 144, 52),
         green: rgb(81, 152, 57),
         red: rgb(176, 70, 50),
         purple: rgb(137, 96, 158),
-        pink: rgb(205, 90, 145)
+        pink: rgb(205, 90, 145),
+        gray: rgba(9,30,66,.2)
     ),
 
     btn: (

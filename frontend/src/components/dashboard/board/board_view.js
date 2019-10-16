@@ -6,15 +6,15 @@ import { updateBoard } from '../../../actions/board_actions';
 import { createList, updateListsArr } from '../../../actions/list_actions';
 import ListColumn from './list_column';
 
+import NavBar from '../../navbar/dashboard_nav';
 
-const bgColor = {
-    backgroundColor: 'rgb(0, 121, 191)'
-}
+
 const Container = styled.div``;
 
 
 const BoardView = (props) => {
-    const { board, lists, allCards } = props;
+    const { currentUser, board, lists, allCards } = props;
+    const bgColor = board ? board.bgColor : '';
 
     // Board
     const [boardInfo, setBoardInfo] = useState(board);
@@ -47,13 +47,13 @@ const BoardView = (props) => {
             setBoardInfo(board);
             updateNewListInfo('boardId', board.id)
         }
-    }, [board]);
+    }, [board, boardInfo]);
 
     useEffect(() => {
         if (allLists !== lists) {
             setAllLists(lists);
         }
-    }, [lists]);
+    }, [lists, allLists]);
 
 
     // setState for BoardInfo
@@ -157,7 +157,9 @@ const BoardView = (props) => {
     
     return(
         <div className="board_wrap">
-            <div style={bgColor} className="board_main-content">
+            <div className={`board_main-content bg-${bgColor}`}>
+                <NavBar currentUser={currentUser} logout={props.logout} classValue="dash_view" />
+
                 <div className="board_header">
                     <h2 className="board_title">{board.name}</h2>
                 </div>
@@ -232,6 +234,8 @@ const BoardView = (props) => {
 
 
 const msp = (state, ownProps) => {
+    const currentUser = state.session || {};
+
     const boardId = ownProps.match.params.boardId;
     const board = state.boards[boardId] || {};
 
@@ -249,6 +253,7 @@ const msp = (state, ownProps) => {
 
 
     return {
+        currentUser,
         board,
         lists,
         allCards: cards

@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('personal', 'team'),
             defaultValue: 'personal'
         },
+        bgColor: {
+            type: DataTypes.ENUM('blue', 'orange', 'green', 'red', 'purple', 'pink', 'gray'),
+            defaultValue: 'gray'
+        },
         listIds: {
             type: DataTypes.ARRAY(DataTypes.STRING),
             defaultValue: []

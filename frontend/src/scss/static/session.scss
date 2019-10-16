@@ -9,20 +9,22 @@
 
     .session_form {
         margin: 0 auto;
+        max-width: 440px;
         font-size: 1.125em;
         
         @media screen and (min-width: 900px) {
             max-width: 585px;
+            font-size: 1.25em;
         }
     }
 
     .session_header {
         margin-bottom: 2em;
-    }
 
-    .session_title {
-        font-size: 2.5em;
-        font-weight: _font(bold);
+        .session_title {
+            font-size: 2.1em;
+            font-weight: _font(bold);
+        }
     }
 
     .session_account,

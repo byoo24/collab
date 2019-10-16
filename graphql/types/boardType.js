@@ -5,6 +5,7 @@ module.exports = `
         name: String!
         description: String
         boardType: String
+        bgColor: String
         user: User!
         userId: ID!
         lists: [List!]!

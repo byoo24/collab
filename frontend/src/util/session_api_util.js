@@ -46,8 +46,7 @@ export const getSessionData = (userId) => {
                             name,
                             description,
                             boardType,
-                            createdAt,
-                            updatedAt,
+                            bgColor,
                             userId,
                             listIds,
                             lists {

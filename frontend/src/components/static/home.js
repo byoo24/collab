@@ -9,10 +9,6 @@ import heroSvg from '../images/hero-a.svg';
 const Home = (props) => {
     const { loggedIn, logout } = props;
 
-    const handleLogout = () => {
-        props.logout();
-    }
-
     
     return (
         <>

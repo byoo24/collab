@@ -19,7 +19,7 @@ const NavBar = (props) => {
                     </div>
                 ) : null}
 
-                <Link to="/login" className="item" onClick={logout}>Logout</Link>
+                <Link to="/login" className="item" onClick={props.logout}>Logout</Link>
             </div>
         </nav>
     );

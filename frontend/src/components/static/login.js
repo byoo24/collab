@@ -76,13 +76,11 @@ const Login = (props) => {
                         <span className="session_account">
                             <Link to="/signup">or create an account</Link>
                         </span>
-                        <span className="guest_account">
-                            <Link to="/" onClick={(e) => handleGuestLogin(e)}>or use guest account</Link>
-                        </span>
+                        
                     </div>
 
                     <form className="log_in_container" onSubmit={(e) => handleSubmit(e)}>
-                        <label for="username" className="required_field">
+                        <label htmlFor="username" className="required_field">
                             Username
                         </label>
                         <input
@@ -102,7 +100,7 @@ const Login = (props) => {
                             <div className="error_field">{errors.username}</div>
                         ) : (null)}
 
-                        <label for="password" className="required_field">
+                        <label htmlFor="password" className="required_field">
                             Password
                         </label>
                         <input
@@ -121,6 +119,9 @@ const Login = (props) => {
                         <input type="submit" value="Log In" />
 
                     </form>
+                    <span className="guest_account">
+                        <Link to="/" onClick={(e) => handleGuestLogin(e)}>or use guest account</Link>
+                    </span>
                 </div>
             </div>
         </div>

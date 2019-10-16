@@ -1,0 +1,42 @@
+.dashboard_header {
+    position: relative;
+    background: _palette(nav, bg);
+    color: _palette(nav, color);
+    padding: 4px;
+    z-index: 10;
+
+    &.dash_view{
+        background: rgba(0,0,0,.3);
+    }
+}
+
+
+.nav_dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .nav_icon {
+        background-color: hsla(0,0%,100%,.3);
+        border-radius: 3px;
+        border: 0;
+        cursor: pointer;
+        padding: 0.25em;
+        margin-right: 0.25em;
+        
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+
+    .nav_mid {
+        .logo_icon {
+            font-size: 2em;
+        }
+
+        .logo_text {
+            font-size: 1.5em;
+        }
+    
+    }
+}

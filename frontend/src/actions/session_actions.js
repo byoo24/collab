@@ -64,7 +64,6 @@ export const signup = input => dispatch => (
         (user) => {
             const { token } = user.data;
             const decoded = setToken(token);
-            debugger
             dispatch(receiveSession(decoded));
         }, 
         err => {
@@ -141,16 +140,6 @@ export const getSessionData = userId => dispatch => (
         }
     })
 )
-
-
-
-
-// export const receiveUpdatedSession = ({ user }) => {
-//     return {
-//         type: RECEIVE_UPDATED_USER,
-//         user
-//     }
-// }
 
 
 

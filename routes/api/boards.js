@@ -5,7 +5,7 @@ const { validateBoardInput } = require('../../validation/dashboard');
 module.exports = (app, db) => {
     app.post('/api/v1/boards', (req, res) => {
         const { errors, isValid } = validateBoardInput(req.body);
-        const { name, description, userId } = req.body;
+        const { name, description, userId, bgColor } = req.body;
 
         if (!isValid) {
             return res.status(400).json(errors);
@@ -14,7 +14,8 @@ module.exports = (app, db) => {
         db.board.create({
             name,
             description,
-            userId
+            userId,
+            bgColor
         }).then(board => {
             const { dataValues } = board;
             const boardId = dataValues.id;

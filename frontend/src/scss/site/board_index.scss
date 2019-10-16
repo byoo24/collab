@@ -1,0 +1,46 @@
+.bg-blue { background: _palette(boards, blue) !important; }
+.bg-orange { background: _palette(boards, orange) !important; }
+.bg-green { background: _palette(boards, green) !important; }
+.bg-red { background: _palette(boards, red) !important; }
+.bg-purple { background: _palette(boards, purple) !important; }
+.bg-pink { background: _palette(boards, pink) !important; }
+.bg-gray { background: _palette(boards, gray) !important; }
+
+
+
+.boards_index-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1em;    box-sizing: border-box;
+}
+
+
+.boards_index-item,
+.boards_index-add {
+    box-sizing: border-box;
+    height: 80px;
+    margin-bottom: 0.75em;
+    color: _palette(boards, text);
+    cursor: pointer;
+
+    .boards_index-link {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 1em;
+        box-sizing: border-box;
+
+        &:hover {
+            background-color: rgba(0,0,0,.25);
+        }
+    }
+}
+
+
+.boards_index-add .boards_index-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: _palette(site, text);
+}

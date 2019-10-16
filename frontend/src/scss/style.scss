@@ -13,10 +13,16 @@
 
 // Navbar
 @import 'navbar/static_nav';
+@import 'navbar/dashboard_nav';
 
 // Static Pages
 @import 'static/home.scss';
 @import 'static/session.scss';
+
+// Board Index
+@import 'site/board_modal';
+@import 'site/board_index';
+@import 'site/board_view';
 
 // @import 'static/home_page.scss';
 // @import 'static/signin.scss';
@@ -34,22 +40,5 @@
 }
 
 
-.content_wrap{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: inherit;
-    overflow: none;
-}
-
-
-#content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative;
-    outline: none;
-    overflow: hidden;
-}
 
 

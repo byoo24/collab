@@ -19,37 +19,37 @@
     right: 0;
     left: 0;
     z-index: 1030;
+}
 
-    .nav_main {
+ .nav_main {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    color: _palette(nav, color);
+    padding: 1em 1.5em;
+    background-color: _palette(nav, bg);
+
+    .nav_right {
         display: flex;
-        justify-content: space-between;
-        position: relative;
-        color: _palette(nav, color);
-        padding: 1em 1.5em;
-        background-color: _palette(nav, bg);
-    
-        .nav_right {
-            display: flex;
-            align-items: center;
-    
-            .nav_link{
-                display: block;
-                padding: 0.75em;
-                font-weight: _font(bold);
-                letter-spacing: 1px;
-    
-                &:hover {
-                    text-decoration: underline;
-                }
-    
-                &:last-child {
-                    color: _palette(nav, bg);
-                    background: _palette(nav, color);
-                    border-radius: 3px;
-                    &:hover { text-decoration: none; }
-                }
+        align-items: center;
+
+        .nav_link{
+            display: block;
+            padding: 0.75em;
+            font-weight: _font(bold);
+            letter-spacing: 1px;
+
+            &:hover {
+                text-decoration: underline;
             }
-            
+
+            &:last-child {
+                color: _palette(nav, bg);
+                background: _palette(nav, color);
+                border-radius: 3px;
+                &:hover { text-decoration: none; }
+            }
         }
+        
     }
 }

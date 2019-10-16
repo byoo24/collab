@@ -16,19 +16,13 @@ const modalComponent = (props) => {
             break;
         default:
             showComponent = null;
-            modal = null;
     }
 
     
     return (
-        <>{
-            modal ? (
-                <div className="modal">
-                    {showComponent}
-                </div>
-            ) : ( null )
-        }</>
-        
+        <div className="modal">
+            {showComponent}
+        </div>
     )
 }
 

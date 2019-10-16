@@ -7,6 +7,7 @@ import { updateSession } from '../../../actions/session_actions';
 import { modalNewBoard } from '../../../actions/modals_action';
 
 import BoardsIndexItem from './boards_index_item';
+import NavBar from '../../navbar/dashboard_nav';
 
 
 
@@ -15,8 +16,8 @@ const PersonalBoards = styled.div``;
 
 const BoardContext = (props) => {
     // SETUP
-    const { boards } = props;
-    const [userInfo, setUserInfo] = useState(props.currentUser);
+    const { currentUser, boards } = props;
+    const [userInfo, setUserInfo] = useState(currentUser);
     const [updateDebounce, setUpdateDebounce] = useState(() => debounce(1000))
     const personalBoards = userInfo.personalBoardIds ? userInfo.personalBoardIds : [];
     // const personalBoards = personalBoards.map(boardId => boards[boardId]);
@@ -24,10 +25,10 @@ const BoardContext = (props) => {
     
     // ComponentDidUpdate
     useEffect(() => {
-        if (userInfo !== props.currentUser) {
-            setUserInfo(props.currentUser);
+        if (userInfo !== currentUser) {
+            setUserInfo(currentUser);
         }
-    }, [props.currentUser]);
+    }, [currentUser, userInfo]);
     
 
     // setState for UserInfo
@@ -59,26 +60,28 @@ const BoardContext = (props) => {
 
     return(
         <div className="boards_index-main">
+            
+            <NavBar currentUser={currentUser} logout={props.logout} />
+            
             <div className="boards_index-container">
-                <div className="index_header">
+                <div className="boards_index-header">
                     <span className="index_title">Personal Boards</span>
                     <span className="index_add ui icon" onClick={props.modalNewBoard}>
                         <i className="material-icons">library_add</i>
                     </span>
                 </div>
+
+
+                <PersonalBoards className="boards_index-drop row">
+                    {personalBoards.map((boardId, idx) => {
+                        const board = boards[boardId];
+                        return <BoardsIndexItem key={board.id} board={board} index={idx} />;
+                    })}
+                    <div className="boards_index-add col-6-gutter col-md-4-gutter col-lg-3-gutter bg-gray" onClick={props.modalNewBoard}>
+                        <span className="boards_index-link">Create new board</span>
+                    </div>
+                </PersonalBoards>
                 
-                <div className="boards_index-content">
-                    <PersonalBoards className="boards_index-drop">
-                        {personalBoards.map((boardId, idx) => {
-                            const board = boards[boardId];
-                            return <BoardsIndexItem key={board.id} board={board} index={idx} />;
-                        })}
-                        <div className="boards_index-add" onClick={props.modalNewBoard}>
-                            <span>Create new board</span>
-                        </div>
-                    </PersonalBoards>
-                    
-                </div>
             </div>
         </div>
     )

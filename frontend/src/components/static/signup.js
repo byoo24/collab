@@ -55,14 +55,12 @@ const Signup = (props) => {
                         <span className="session_account">
                             <Link to="/login">or sign in to your account</Link>
                         </span>
-                        <span className="guest_account">
-                            <Link to="/" onClick={(e) => handleGuestLogin(e)}>or use guest account</Link>
-                        </span>
+                        
                     </div>
                     
                     <form className="sign_up_container" onSubmit={(e) => handleSubmit(e)}>
                         
-                        <label for="username" className="required_field">
+                        <label htmlFor="username" className="required_field">
                             Username
                         </label>
                         <input
@@ -82,7 +80,7 @@ const Signup = (props) => {
                             <div className="error_field">{errors.username}</div>
                         ) : (null)}
 
-                        <label for="email" className="required_field">
+                        <label htmlFor="email" className="required_field">
                             Email
                         </label>
                         <input
@@ -102,7 +100,7 @@ const Signup = (props) => {
                             <div className="error_field">{errors.email}</div>
                         ) : (null)}
 
-                        <label for="password1" className="required_field">
+                        <label htmlFor="password1" className="required_field">
                             Password
                         </label>
                         <input
@@ -118,7 +116,7 @@ const Signup = (props) => {
                             <div className="error_field">{errors.password}</div>
                         ) : (null)}
 
-                        <label for="password2" className="required_field">
+                        <label htmlFor="password2" className="required_field">
                             Confirm Password
                         </label>
                         <input
@@ -126,7 +124,7 @@ const Signup = (props) => {
                             name="password2"
                             id="password2"
                             placeholder="Same as above"
-                            value={userInfo.password}
+                            value={userInfo.password2}
                             className={errors.password2 ? 'error' : ''}
                             onChange={e => updateUserInfo("password2", e.target.value)}
                         />
@@ -136,6 +134,10 @@ const Signup = (props) => {
 
                         <input type="submit" value="Create New Account" />
                     </form>
+
+                    <span className="guest_account">
+                        <Link to="/" onClick={(e) => handleGuestLogin(e)}>or use guest account</Link>
+                    </span>
                 </div>
             </div>
         </section>

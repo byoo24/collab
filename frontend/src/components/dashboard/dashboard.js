@@ -7,7 +7,6 @@ import { getSessionData, logout } from '../../actions/session_actions';
 
 import BoardIndex from './boards/boards_index';
 import Board from './board/board_view';
-import NavBar from './navbar/navbar';
 import ModalComponent from './modals/modal_component';
 
 
@@ -27,7 +26,7 @@ const Dashboard = (props) => {
         <ModalComponent modal={props.modal} />
         <div className="content_wrap">
             <div id="content">
-                <NavBar currentUser={currentUser} logout={props.logout} />
+                
                 <Switch>
                     <CustomRoute exact path={match.url + "/"}
                         component={BoardIndex}

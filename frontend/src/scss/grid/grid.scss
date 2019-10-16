@@ -45,6 +45,14 @@
         max-width: #{$i / 12 * 100%};
     }
 
+    .col-#{$i}-gutter {
+        flex: 0 0 #{$i / 12 * 100% - 1%};
+        max-width: #{$i / 12 * 100% - 1%};
+        margin: 0 0.5%;
+    }
+}
+
+@for $i from 1 through 12 {
     @media screen and (min-width: _screenSize(small)) {
         .col-sm-#{$i} {
             flex: 0 0 #{$i / 12 * 100%};
@@ -53,8 +61,16 @@
         .offset-sm-#{$i} {
             margin-left: #{$i / 12 * 100%};
         }
-    }
 
+        .col-sm-#{$i}-gutter {
+            flex: 0 0 #{$i / 12 * 100% - 1%};
+            max-width: #{$i / 12 * 100% - 1%};
+            margin: 0 0.5%;
+        }
+    }
+}
+
+@for $i from 1 through 12 {
     @media screen and (min-width: _screenSize(medium)) {
         .col-md-#{$i} {
             flex: 0 0 #{$i / 12 * 100%};
@@ -63,8 +79,16 @@
         .offset-md-#{$i} {
             margin-left: #{$i / 12 * 100%};
         }
+        .col-md-#{$i}-gutter {
+            flex: 0 0 #{$i / 12 * 100% - 1%};
+            max-width: #{$i / 12 * 100% - 1%};
+            margin: 0 0.5%;
+        }
     }
+}
 
+
+@for $i from 1 through 12 {
     @media screen and (min-width: _screenSize(large)) {
         .col-lg-#{$i} {
             flex: 0 0 #{$i / 12 * 100%};
@@ -73,8 +97,17 @@
         .offset-lg-#{$i} {
             margin-left: #{$i / 12 * 100%};
         }
+        .col-lg-#{$i}-gutter {
+            flex: 0 0 #{$i / 12 * 100% - 1%};
+            max-width: #{$i / 12 * 100% - 1%};
+            margin: 0 0.5%;
+        }
     }
+}
 
+
+
+@for $i from 1 through 12 {
     @media screen and (min-width: _screenSize(xlarge)) {
         .col-xl-#{$i} {
             flex: 0 0 #{$i / 12 * 100%};
@@ -82,6 +115,11 @@
         }
         .offset-xl-#{$i} {
             margin-left: #{$i / 12 * 100%};
+        }
+        .col-sm-#{$i}-gutter {
+            flex: 0 0 #{$i / 12 * 100% - 1%};
+            max-width: #{$i / 12 * 100% - 1%};
+            margin: 0 0.5%;
         }
     }
 }
