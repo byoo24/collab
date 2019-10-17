@@ -56,19 +56,14 @@ const BoardContext = (props) => {
     }
 
 
-
-
     return(
         <div className="boards_index-main">
             
-            <NavBar currentUser={currentUser} logout={props.logout} />
+            <NavBar currentUser={currentUser} logout={props.logout} boards={boards} />
             
             <div className="boards_index-container">
                 <div className="boards_index-header">
-                    <span className="index_title">Personal Boards</span>
-                    <span className="index_add ui icon" onClick={props.modalNewBoard}>
-                        <i className="material-icons">library_add</i>
-                    </span>
+                    <h4 className="index_title">Personal Boards</h4>
                 </div>
 
 

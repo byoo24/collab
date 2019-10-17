@@ -51,11 +51,11 @@ $listWidth: 17.5em;
         .list_title {
             display: flex;
             justify-content: space-between;
-            font-size: 1.125em;
+            // font-size: 1.125em;
             font-weight: 600;
 
             .list_title-edit {
-                font-size: 16px;
+                // font-size: 16px;
                 color: #999;
                 transition: color .2s ease;
                 &:hover { color: #333; }
@@ -97,7 +97,7 @@ $listWidth: 17.5em;
         }
 
         .form_close {
-            font-size: 2em;
+            // font-size: 2em;
             margin-left: 0.25em;
             cursor: pointer;
         }
@@ -135,7 +135,7 @@ $listWidth: 17.5em;
         border-radius: 3px;
         overflow-wrap: break-word;
         word-break: break-word;
-        white-space: normal;
+        white-space: pre-wrap;
     }
 }
 
@@ -181,7 +181,7 @@ $listWidth: 17.5em;
     }
 
     .form_close {
-        font-size: 2em;
+        // font-size: 2em;
         margin-left: 0.25em;
         cursor: pointer;
     }

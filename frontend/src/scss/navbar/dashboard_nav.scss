@@ -8,6 +8,111 @@
     &.dash_view{
         background: rgba(0,0,0,.3);
     }
+
+    .nav_boards_index{
+        display: block;
+        position: absolute;
+        width: 200px;
+        top: 100%;
+        padding: 0.5em;
+        color: _palette(nav, default);
+        background: #fff;
+        box-shadow: 0 12px 24px -6px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+        border-radius: 3px;
+        box-sizing: border-box;
+
+        .nav_boards_title {
+            margin-bottom: 0.5em;
+        }
+
+        .nav_boards_link {
+            display: flex;
+            height: 36px;
+            margin-bottom: 0.5em;
+            border-radius: 3px;
+            cursor: pointer;
+            &:hover .nav_boards_tile { background: rgba(255, 255, 255, .25); }
+            &:hover .nav_boards_text { background: rgba(255, 255, 255, .85); }
+
+            .nav_boards_tile {
+                display: block;
+                height: 36px;
+                width: 36px;
+                flex-shrink: 0;
+            }
+
+            .nav_boards_text {
+                display: block;
+                font-size: 14px;
+                height: 36px;
+                line-height: 36px;
+                width: 100%;
+                padding-left: 0.5em;
+                background: rgba(255, 255, 255, .75);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .nav_boards_create,
+    .nav_user_menu {
+        display: block;
+        position: absolute;
+        width: 260px;
+        top: 100%;
+        right: 10px;
+        color: _palette(nav, default);
+        background: #fff;
+        box-shadow: 0 12px 24px -6px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+        border-radius: 3px;
+        box-sizing: border-box;
+
+
+        .nav_sub_title {
+            display: block;
+            text-align: center;
+            flex-shrink: 0;
+            width: 80%;
+            padding: 0.5em;
+            margin: 0 auto 0.5em;
+            border-bottom: 1px solid lightgray
+        }
+
+        .nav_sub_link {
+            display: block;
+            font-size: 14px;
+            padding: 0.75em;
+            cursor: pointer;
+            &:hover {
+                color: #172b4d;
+                background: rgba(9,30,66,.04);
+            }
+
+            .nav_sub_link-title {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+                margin-bottom: 0.5em;
+
+                .nav_sub_link-icon {
+                    margin-right: 0.25em;
+                }
+            }
+
+            p {
+                font-size: 12px;
+                font-weight: 300;
+                line-height: 1.2;
+                color: #5e6c84;
+            }
+
+        }
+
+        
+        
+    }
 }
 
 

@@ -158,7 +158,7 @@ const BoardView = (props) => {
     return(
         <div className="board_wrap">
             <div className={`board_main-content bg-${bgColor}`}>
-                <NavBar currentUser={currentUser} logout={props.logout} classValue="dash_view" />
+                <NavBar currentUser={currentUser} logout={props.logout} classValue="dash_view" boards={props.boards} />
 
                 <div className="board_header">
                     <h2 className="board_title">{board.name}</h2>
@@ -256,7 +256,8 @@ const msp = (state, ownProps) => {
         currentUser,
         board,
         lists,
-        allCards: cards
+        allCards: cards,
+        boards: state.boards
     }
 }
 

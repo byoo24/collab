@@ -13,6 +13,15 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 1em;    box-sizing: border-box;
+
+    .boards_index-header {
+        .index_title {
+            display: block;
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+            border-bottom: 1px solid lightgray;
+        }
+    }
 }
 
 
