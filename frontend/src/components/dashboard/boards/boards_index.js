@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -17,43 +17,7 @@ const PersonalBoards = styled.div``;
 const BoardContext = (props) => {
     // SETUP
     const { currentUser, boards } = props;
-    const [userInfo, setUserInfo] = useState(currentUser);
-    const [updateDebounce, setUpdateDebounce] = useState(() => debounce(1000))
-    const personalBoards = userInfo.personalBoardIds ? userInfo.personalBoardIds : [];
-    // const personalBoards = personalBoards.map(boardId => boards[boardId]);
-
-    
-    // ComponentDidUpdate
-    useEffect(() => {
-        if (userInfo !== currentUser) {
-            setUserInfo(currentUser);
-        }
-    }, [currentUser, userInfo]);
-    
-
-    // setState for UserInfo
-    function updateUserInfo (field, value) {
-        const copyUserInfo = Object.assign({}, userInfo);
-
-        copyUserInfo[field] = value;
-        setUserInfo(copyUserInfo);
-        updateDebounce(copyUserInfo);
-    }
-
-
-    function debounce(interval) {
-        let timeout;
-
-        return (arg) => {
-            const fnCall = () => {
-                timeout = null;
-                props.updateSession(arg);
-            }
-
-            clearTimeout(timeout);
-            timeout = setTimeout(fnCall, interval);
-        }
-    }
+    const personalBoards = currentUser.personalBoardIds ? currentUser.personalBoardIds : [];
 
 
     return(

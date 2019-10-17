@@ -8,7 +8,6 @@ const Navbar = (props) => {
     const { loggedIn, logout, classValue } = props;
     const boards = props.boards || {};
     const extraStyle = classValue ? classValue : '';
-    const [ toggleBoardIndex, setToggleBoardIndex ] = useState(false);
     const [subMenus, setSubMenus] = useState({
         boardsIndex: false,
         createMenu: false,

@@ -8,7 +8,7 @@ import {
 } from '../../actions/session_actions';
 
 const Login = (props) => {
-    const { errors } = props;
+    const { errors, isErrors, clearSessionErrors } = props;
     const [userInfo, setUserInfo] = useState({
         username: "",
         password: "",
@@ -16,15 +16,15 @@ const Login = (props) => {
     
     useEffect(() => {
         // ComponentDidMount
-        if (props.isErrors) {
-            props.clearSessionErrors();
+        if (isErrors) {
+            clearSessionErrors();
         }
 
         // ComponentWillUnmount
         return function clearErrors() {
 
-            if (props.isErrors) {
-                props.clearSessionErrors();
+            if (isErrors) {
+                clearSessionErrors();
             }
         }
     }, []);
@@ -45,25 +45,6 @@ const Login = (props) => {
             password: "password123"
         })
     }
-
-    const uiErrors = props.isErrors ? (
-        <div className="ui error message visible">
-            <span className="ui left aligned header">
-                There were some errors with your submission.
-            </span>
-            <ul className="list">
-                {
-                    Object.values(errors).map((error, idx) => {
-                        return (
-                            <li key={idx}>
-                                {error}
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-        </div>
-    ) : null;
 
 
     return (

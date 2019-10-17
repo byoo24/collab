@@ -5,7 +5,7 @@ import { isEmpty } from '../../libs/helper_methods';
 import { signup, login, clearSessionErrors } from '../../actions/session_actions';
 
 const Signup = (props) => {
-    const { errors } = props;
+    const { errors, isErrors, clearSessionErrors } = props;
     const [userInfo, setUserInfo] = useState({
         username: "",
         email: "",
@@ -15,14 +15,14 @@ const Signup = (props) => {
     
     useEffect(() => {
         // ComponentDidMount
-        if (props.isErrors) {
-            props.clearSessionErrors();
+        if (isErrors) {
+            clearSessionErrors();
         }
 
         // ComponentWillUnmount
         return function clearErrors() {
-            if (props.isErrors) {
-                props.clearSessionErrors();
+            if (isErrors) {
+                clearSessionErrors();
             }
         }
     }, []);

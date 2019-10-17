@@ -15,15 +15,14 @@ const Container = styled.div``;
 const BoardView = (props) => {
     const { currentUser, board, lists, allCards } = props;
     const bgColor = board ? board.bgColor : '';
+    const updateDebounce = debounce(1000);
 
     // Board
     const [boardInfo, setBoardInfo] = useState(board);
-    const [updateBoardInfoDebounce, setBoardInfoDebounce] = useState(() => debounce(1000));
     const listOrder = boardInfo.listIds ? boardInfo.listIds : [];
 
     // Lists
     const [allLists, setAllLists] = useState(lists);
-    const [updateAllListsDebounce, setUpdateAllListsDebounce] = useState(() => debounce(1000));
     const [showNewListForm, setShowNewListForm] = useState(false);
     const [newListInfo, setNewListInfo] = useState({
         name: "",
@@ -47,7 +46,7 @@ const BoardView = (props) => {
             setBoardInfo(board);
             updateNewListInfo('boardId', board.id)
         }
-    }, [board, boardInfo]);
+    }, [board]);
 
     useEffect(() => {
         if (allLists !== lists) {
@@ -63,7 +62,7 @@ const BoardView = (props) => {
 
         copyBoardInfo[field] = value;
         setBoardInfo(copyBoardInfo);
-        updateBoardInfoDebounce('board', copyBoardInfo);
+        updateDebounce('board', copyBoardInfo);
     }
 
 
@@ -75,7 +74,7 @@ const BoardView = (props) => {
             copyAllLists[list.id] = list;
         });
         setAllLists(copyAllLists);
-        updateAllListsDebounce('lists', arrLists);
+        updateDebounce('lists', arrLists);
     }
 
 
@@ -93,6 +92,8 @@ const BoardView = (props) => {
                     case 'lists':
                         props.updateListsArr(arg);
                         break;
+                    default:
+                        return;
                 }
                 
             }
@@ -161,7 +162,7 @@ const BoardView = (props) => {
                 <NavBar currentUser={currentUser} logout={props.logout} classValue="dash_view" boards={props.boards} />
 
                 <div className="board_header">
-                    <h2 className="board_title">{board.name}</h2>
+                    <h3 className="board_title">{board.name}</h3>
                 </div>
 
                 <div className="board_view">

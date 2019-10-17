@@ -13,11 +13,11 @@ import ModalComponent from './modals/modal_component';
 const Dashboard = (props) => {
 
     // SETUP
-    const { match, currentUser } = props;
+    const { match, currentUser, getSessionData } = props;
 
     // ComponentDidMount
     useEffect(() => {
-        props.getSessionData(currentUser.id);
+        getSessionData(currentUser.id);
     }, []);
 
     
