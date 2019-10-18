@@ -4,6 +4,7 @@ import { CustomRoute } from '../../util/route_util';
 import { connect } from 'react-redux';
 
 import { getSessionData, logout } from '../../actions/session_actions';
+import { navClear } from '../../actions/nav_actions';
 
 import BoardIndex from './boards/boards_index';
 import Board from './board/board_view';
@@ -20,13 +21,19 @@ const Dashboard = (props) => {
         getSessionData(currentUser.id);
     }, []);
 
+    const closeNavSubMenus = () => {
+        if (props.navState) {
+            props.navClear();
+        }
+    }
+
     
     return (
         <>
-        <ModalComponent modal={props.modal} />
-        <div className="content_wrap">
+            <div className="content_wrap" onClickCapture={closeNavSubMenus}>
+            <ModalComponent modal={props.modal} />
+
             <div id="content">
-                
                 <Switch>
                     <CustomRoute exact path={match.url + "/"}
                         component={BoardIndex}
@@ -52,7 +59,8 @@ const msp = (state, ownProps) => {
     
     return {
         currentUser,
-        modal: state.modal
+        modal: state.modal,
+        navState: state.nav
     }
 }
 
@@ -60,7 +68,8 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
     return {
         getSessionData: (userId) => dispatch(getSessionData(userId)),
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        navClear: () => dispatch(navClear())
     }
 }
 

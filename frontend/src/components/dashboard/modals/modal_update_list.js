@@ -5,17 +5,17 @@ import { modalClear } from '../../../actions/modals_action';
 
 
 
-const ModalUpdatCard = (props) => {
+const ModalUpdatList = (props) => {
     const [cardInfo, setCardInfo] = useState(props.data);
 
     function updateCardInfo(field, value) {
-        setCardInfo({ ...cardInfo, [field]: value});
+        setCardInfo({ ...cardInfo, [field]: value });
     }
 
     function handleUpdateCard(e) {
         e.preventDefault();
         props.updateCard(cardInfo)
-             .then(props.modalClear());
+            .then(props.modalClear());
     }
 
     return (
@@ -28,7 +28,7 @@ const ModalUpdatCard = (props) => {
                     <textarea
                         placeholder="Card title is required"
                         value={cardInfo.name}
-                        onChange={(e) => updateCardInfo('name', e.target.value)} 
+                        onChange={(e) => updateCardInfo('name', e.target.value)}
                         required
                     ></textarea>
                 </div>
@@ -53,4 +53,4 @@ const mdp = (dispatch) => {
 }
 
 
-export default connect(null, mdp)(ModalUpdatCard);
+export default connect(null, mdp)(ModalUpdatList);

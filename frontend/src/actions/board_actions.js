@@ -30,7 +30,7 @@ export const createBoard = input => dispatch =>(
         } else {
             const { board, user } = data;
 
-            dispatch(receiveBoard({
+            return dispatch(receiveBoard({
                 board,
                 user
             }));

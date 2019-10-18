@@ -1,6 +1,7 @@
 import {
     MODAL_NEW_BOARD,
     MODAL_UPDATE_CARD,
+    MODAL_UPDATE_LIST,
     MODAL_CLEAR
 } from '../../actions/modals_action';
 
@@ -10,6 +11,7 @@ const modalsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case MODAL_UPDATE_CARD:
+        case MODAL_UPDATE_LIST:
         case MODAL_NEW_BOARD:
             return action;
         case MODAL_CLEAR:

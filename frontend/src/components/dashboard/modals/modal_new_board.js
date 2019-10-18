@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createBoard } from '../../../actions/board_actions';
 import { modalClear } from '../../../actions/modals_action';
@@ -32,11 +33,16 @@ const ModalNewBoard = (props) => {
 
     function handleCreateBoard(e) {
         e.preventDefault();
+        // debugger
 
         props.createBoard(newBoard)
-            .then(props.modalClear());
+            .then(props.modalClear())
+            .then((promise) => {
+                const newBoard = promise.board
+                props.history.push(`/dashboard/boards/${newBoard.id}`);
+            });
     }
-
+    // debugger
     return (
         <div className="modal_container">
             <form className="modal_new_board" onSubmit={(e) => handleCreateBoard(e)}>
@@ -77,4 +83,4 @@ const mdp = (dispatch) => {
     }
 }
 
-export default connect(msp, mdp)(ModalNewBoard);
+export default withRouter(connect(msp, mdp)(ModalNewBoard));

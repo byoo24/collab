@@ -35,13 +35,32 @@
 
     .boards_index-link {
         display: block;
+        position: relative;
         width: 100%;
         height: 100%;
-        padding: 1em;
+        line-height: 1.2;
+        padding: 0.5em 1.75em 0.5em 0.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
         box-sizing: border-box;
+        transition-property: background-color;
+        transition-duration: .2s;
+
+        .boards_index-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            opacity: 0;
+            transition-property: opacity;
+            transition-duration: .2s;
+        }
 
         &:hover {
             background-color: rgba(0,0,0,.25);
+
+            .boards_index-close {
+                opacity: 1;
+            }
         }
     }
 }

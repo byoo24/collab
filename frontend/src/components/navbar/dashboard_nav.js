@@ -1,31 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Logo from './logo';
+
+import { navIndex, navUser, navCreate, navClear } from '../../actions/nav_actions';
+import { modalNewBoard } from '../../actions/modals_action';
 
 
 const Navbar = (props) => {
-    const { loggedIn, logout, classValue } = props;
+    const { loggedIn, logout, classValue, navState } = props;
     const boards = props.boards || {};
     const extraStyle = classValue ? classValue : '';
-    const [subMenus, setSubMenus] = useState({
-        boardsIndex: false,
-        createMenu: false,
-        userMenu: false
-    });
+    const [activeSubMenu, setActiveSubMenu] = useState(null);
+
+    useEffect(() => {
+        setActiveSubMenu(navState);
+    }, [navState])
+
 
     const toggleSubMenu = (field) => {
-        const copySubMenus = {
-            boardsIndex: false,
-            createMenu: false,
-            userMenu: false
-        };
-        const toggled = !subMenus[field]
-        copySubMenus[field] = toggled;
-        setSubMenus(copySubMenus);
+   
+        switch (field) {
+            case "navIndex":
+                if (activeSubMenu != 'NAV_INDEX'){
+                    props.navIndex();
+                    return;
+                }
+                break;
+            case "navCreate":
+                if (activeSubMenu != 'NAV_CREATE') {
+                    props.navCreate();
+                    return;
+                }
+                break;
+            case "navUser":
+                if (activeSubMenu != 'NAV_USER') {
+                    props.navUser();
+                    return;
+                }
+                break;
+        }
+        props.navClear();
     }
     
-    const boardsIndex = subMenus.boardsIndex ? (
+    const boardsIndex = navState === 'NAV_INDEX' ? (
         <div className="nav_boards_index">
             <h6 className="nav_boards_title">Personal Boards</h6>
 
@@ -41,10 +59,10 @@ const Navbar = (props) => {
         </div>
     ) : ( null );
 
-    const createMenu = subMenus.createMenu ? (
+    const createMenu = navState === 'NAV_CREATE' ? (
         <div className="nav_boards_create">
             <h6 className="nav_sub_title">Create</h6>
-            <div className="nav_sub_link">
+            <div className="nav_sub_link" onClick={props.modalNewBoard}>
                 <h6 className="nav_sub_link-title">
                     <span className="nav_sub_link-icon material-icons">insert_chart_outlined</span>
                     Create Board
@@ -54,7 +72,7 @@ const Navbar = (props) => {
         </div>
     ) : ( null );
 
-    const userMenu = subMenus.userMenu ? (
+    const userMenu = navState === 'NAV_USER' ? (
         <div className="nav_user_menu">
             <h6 className="nav_sub_title">Menu</h6>
             <div className="nav_sub_link">
@@ -72,14 +90,14 @@ const Navbar = (props) => {
             <nav className="nav_dashboard">
                 <div className="nav_left">
                     <Link to="/dashboard/" className="nav_icon material-icons-outlined">home</Link>
-                    <span className="nav_icon material-icons" onClick={() => toggleSubMenu('boardsIndex')}>insert_chart_outlined</span>
+                    <span className="nav_icon material-icons" onClick={() => toggleSubMenu('navIndex')}>insert_chart_outlined</span>
                 </div>
                 <div className="nav_mid">
                     <Logo />
                 </div>
                 <div className="nav_right">
-                    <span className="nav_icon material-icons" onClick={() => toggleSubMenu('createMenu')}>add</span>
-                    <span className="nav_icon material-icons" onClick={() => toggleSubMenu('userMenu')}>person_outline</span>
+                    <span className="nav_icon material-icons" onClick={() => toggleSubMenu('navCreate')}>add</span>
+                    <span className="nav_icon material-icons" onClick={() => toggleSubMenu('navUser')}>person_outline</span>
                 </div>
             </nav>
             
@@ -91,5 +109,22 @@ const Navbar = (props) => {
 }
 
 
+const msp = (state) => {
+    return {
+        navState: state.nav
+    }
+}
 
-export default Navbar;
+
+const mdp = (dispatch) => {
+    return {
+        modalNewBoard: () => dispatch(modalNewBoard()),
+        navIndex: () => dispatch(navIndex()),
+        navUser: () => dispatch(navUser()),
+        navCreate: () => dispatch(navCreate()),
+        navClear: () => dispatch(navClear())
+    }
+}
+
+
+export default connect(msp, mdp)(Navbar);

@@ -28,21 +28,18 @@
 @import 'site/board_index';
 @import 'site/board_view';
 
-// @import 'static/home_page.scss';
-// @import 'static/signin.scss';
-// @import 'dashboard/board_modal.scss';
-// @import 'dashboard/board_nav.scss';
-// @import 'dashboard/board_index.scss';
-// @import 'dashboard/board_view.scss';
-// @import 'semantic-ui/semantic.css';
+
 
 
 
 
 #root{
-    height: 100%;
+    height: 100vh;
 }
 
+.content_wrap {
+    height: 100%;
+}
 
 
 
