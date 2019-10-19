@@ -188,12 +188,12 @@ const BoardView = (props) => {
                                     ref={provided.innerRef}
                                 >
                                     {listOrder.map((listId, idx) => {
-                                        const list = allLists[listId];
-                                        const cardOrder = list.cardIds;
-                                        const cards = cardOrder.map(cardId => allCards[cardId]);
+                                        const list = allLists[listId] || {};
+                                        // const cardOrder = list.cardIds;
+                                        // const cards = cardOrder.map(cardId => allCards[cardId]);
 
                                         return (
-                                            <ListColumn key={list.id} index={idx} list={list} cards={cards} />
+                                            <ListColumn key={list.id} index={idx} list={list} />
                                         );
                                     })}
 

@@ -35,6 +35,12 @@ const CardRows = (props) => {
     )
 }
 
+const msp = (state, ownProps) => {
+    const { cardId } = ownProps;
+    return {
+        card: state.cards[cardId] || {}
+    }
+}
 
 const mdp = (dispatch) => {
     return {
@@ -42,4 +48,4 @@ const mdp = (dispatch) => {
     }
 }
 
-export default connect(null, mdp)(CardRows);
+export default connect(msp, mdp)(CardRows);

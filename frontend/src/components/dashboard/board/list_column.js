@@ -18,7 +18,7 @@ const ListContent = styled.div`
 
 
 const ListColumn = (props) => {
-    const { index, list, cards } = props;
+    const { index, list } = props;
 
     // List
     const [showListNameForm, setShowListNameForm] = useState(false);
@@ -92,7 +92,7 @@ const ListColumn = (props) => {
                                 {...provided.droppableProps}
                                 isDraggingOver={snapshot.isDraggingOver}
                             >
-                                {cards.map((card, idx) => <CardRows key={card.id} index={idx} card={card} />)}
+                                {list.cardIds.map((cardId, idx) => <CardRows key={cardId} index={idx} cardId={cardId} />)}
                                 {provided.placeholder}
                             </CardsContainer>
                         )}
