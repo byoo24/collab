@@ -33,7 +33,6 @@ const ModalNewBoard = (props) => {
 
     function handleCreateBoard(e) {
         e.preventDefault();
-        // debugger
 
         props.createBoard(newBoard)
             .then(props.modalClear())
@@ -42,7 +41,7 @@ const ModalNewBoard = (props) => {
                 props.history.push(`/dashboard/boards/${newBoard.id}`);
             });
     }
-    // debugger
+    
     return (
         <div className="modal_container">
             <form className="modal_new_board" onSubmit={(e) => handleCreateBoard(e)}>

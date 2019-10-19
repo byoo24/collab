@@ -32,7 +32,7 @@ const BoardView = (props) => {
     function handleCreateList(e) {
         e.preventDefault();
         props.createList(newListInfo)
-             .then(setNewListInfo({ ...newListInfo, "name": "" }));
+        setNewListInfo({ ...newListInfo, "name": "" });
     }
 
     function updateNewListInfo(field, value) {
@@ -48,11 +48,12 @@ const BoardView = (props) => {
         }
     }, [board]);
 
+
     useEffect(() => {
         if (allLists !== lists) {
             setAllLists(lists);
         }
-    }, [lists, allLists]);
+    }, [lists]);
 
 
     // setState for BoardInfo
@@ -73,8 +74,8 @@ const BoardView = (props) => {
         data.listsArr.forEach(list => {
             copyAllLists[list.id] = list;
         });
+        
         setAllLists(copyAllLists);
-        // props.updateListsArr(data);
         updateDebounce('lists', data);
     }
 
@@ -189,11 +190,11 @@ const BoardView = (props) => {
                                 >
                                     {listOrder.map((listId, idx) => {
                                         const list = allLists[listId] || {};
-                                        // const cardOrder = list.cardIds;
-                                        // const cards = cardOrder.map(cardId => allCards[cardId]);
+                                        const cardOrder = list.cardIds;
+                                        const cards = cardOrder.map(cardId => allCards[cardId]);
 
                                         return (
-                                            <ListColumn key={list.id} index={idx} list={list} />
+                                            <ListColumn key={list.id} index={idx} list={list} cards={cards} />
                                         );
                                     })}
 
@@ -254,12 +255,13 @@ const msp = (state, ownProps) => {
     for(let key of listIds) lists[key] = state.lists[key];
     
 
-    const cards = {};
-    Object.keys(lists).forEach(listKey => {
-        let list = lists[listKey];
-        let cardIds = list.cardIds;
-        for(let key of cardIds) cards[key] = state.cards[key];
-    })
+    // const cards = {};
+    // Object.keys(lists).forEach(listKey => {
+    //     let list = lists[listKey];
+    //     let cardIds = list.cardIds;
+    //     for(let key of cardIds) cards[key] = state.cards[key];
+    // })
+    const cards = state.cards || {};
 
 
     return {

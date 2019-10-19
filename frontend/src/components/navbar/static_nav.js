@@ -15,9 +15,10 @@ const Navbar = ({ loggedIn, logout }) => {
             </div>
             <div className="nav_right">
                 {
-                    loggedIn ? (
+                    loggedIn ? (<>
+                        <Link to="/dashboard" className="nav_link">Dashboard</Link>
                         <Link href="/" className="nav_link" onClick={logout}>Logout</Link>
-                    ) : (<>
+                    </>) : (<>
                         <Link to="/login" className="nav_link">Login</Link>
                         <Link to="/signup" className="nav_link">Signup</Link>
                     </>)

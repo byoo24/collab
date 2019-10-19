@@ -18,7 +18,7 @@ const ListContent = styled.div`
 
 
 const ListColumn = (props) => {
-    const { index, list } = props;
+    const { index, list, cards } = props;
 
     // List
     const [showListNameForm, setShowListNameForm] = useState(false);
@@ -47,13 +47,12 @@ const ListColumn = (props) => {
 
     function handleCreateCard(e) {
         e.preventDefault();
-        props.createCard(newCardInfo)
-             .then(() => {
-                 setNewCardInfo({
-                     name: "",
-                     listId: list.id
-                 })
-             });
+        props.createCard(newCardInfo);
+
+        setNewCardInfo({
+            name: "",
+            listId: list.id
+        })
     }
 
     
@@ -92,7 +91,7 @@ const ListColumn = (props) => {
                                 {...provided.droppableProps}
                                 isDraggingOver={snapshot.isDraggingOver}
                             >
-                                {list.cardIds.map((cardId, idx) => <CardRows key={cardId} index={idx} cardId={cardId} />)}
+                                {cards.map((card, idx) => <CardRows key={card.id} index={idx} card={card} />)}
                                 {provided.placeholder}
                             </CardsContainer>
                         )}
@@ -126,6 +125,14 @@ const ListColumn = (props) => {
 }
 
 
+// const msp = (state, ownProps) => {
+//     const { cardOrder } = ownProps;
+//     const cards = cardOrder.map(cardId => state.cards[cardId]) || [];
+    
+//     return {
+//         cards
+//     }
+// }
 
 
 const mdp = (dispatch) => {

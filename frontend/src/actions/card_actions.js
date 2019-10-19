@@ -45,7 +45,7 @@ export const createCard = input => dispatch => (
         } else {
             const { card, list } = data;
             
-            return dispatch(receiveCard({
+            dispatch(receiveCard({
                 card,
                 list
             }));
@@ -64,7 +64,7 @@ export const updateCard = input => dispatch => (
         } else {
             const { card } = data;
 
-            return dispatch(receiveUpdatedCard({
+            dispatch(receiveUpdatedCard({
                 card
             }));
         }
@@ -81,8 +81,7 @@ export const deleteCard = card => dispatch => {
             console.log(errors);
         } else {
             const { deleteCard } = data;
-            debugger
-            return dispatch(removeCard({
+            dispatch(removeCard({
                 cardId: deleteCard.id,
                 listId: deleteCard.listId
             }))
