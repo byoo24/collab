@@ -10,5 +10,5 @@ const types = [
     listType,
     cardType
 ];
-
+ 
 module.exports = mergeTypes(types);
