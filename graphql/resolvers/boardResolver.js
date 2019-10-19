@@ -8,67 +8,34 @@ module.exports = {
         board: (parent, args, { db }, info) => db.board.findByPk(args.id)
     },
     Mutation: {
-        createBoard: async (parent, args, context, info) => {
+        deleteBoard: async(parent, args, context, info) => {
             const { db } = context;
-            // personalBoardIds: is to keep track of the order of the boards.
-            //      when creating a new board, user needs to be updated
-            const { name, description, userId, personalBoardIds } = args;
+            const { id } = args;
+            const errors = {};
+            let board, user;
 
-            console.log("=================");
-            console.log("args:", args);
-            console.log("=================");
+            const boardRaw = await db.board.findByPk(id);
+            if (boardRaw) {
+                board = boardRaw.dataValues;
+                const userRaw = await db.user.findByPk(board.userId);
+                user = userRaw.dataValues;
+            } else {
+                errors.board = "Board was not found";
+            }
 
-            return db.board.create({
-                name,
-                description,
-                userId,
-                listIds: []
-            }).then((board) => {
-                const { dataValues } = board;
-                const boardId = dataValues.id;
-
-
-                
-                // personalBoardIds is ready only
-                let boardIds = [...personalBoardIds];
-
-                if (personalBoardIds[0] === "") {
-                    boardIds = [boardId];
-                } else {
-                    boardIds.push(boardId);
+            if (user) {
+                const boardIndex = user.personalBoardIds.indexOf(board.id);
+                if(boardIndex > -1) {
+                    user.personalBoardIds.splice(boardIndex, 1);
+                    await db.user.update(user, {where: {id: user.id}});
                 }
-                
-
-                console.log("=============");
-                console.log("boardIds", boardIds);
-                console.log("=============");
-
-
-                
-                db.user.update({
-                    personalBoardIds: boardIds
-                }, {
-                    where: {id: userId}
-                });
-
+                await db.board.destroy({where: {id: board.id}});
                 return board;
-            });
-        },
-        updateBoard: (parent, args, context, info) => {
-            const { db } = context;
-            const { id, name, description } = args;
+            } else {
+                errors.user = "User was not found";
+            }
 
-            const board = db.board.findByPk(id);
-
-
-            db.board.update({
-                name: name
-            },
-            {
-                where: {
-                    id: id
-                }
-            })
+            return errors;
         }
     }
 };

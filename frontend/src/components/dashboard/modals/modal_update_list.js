@@ -1,40 +1,45 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateCard } from '../../../actions/card_actions';
+import { updateList, deleteList } from '../../../actions/list_actions';
 import { modalClear } from '../../../actions/modals_action';
 
 
 
 const ModalUpdatList = (props) => {
-    const [cardInfo, setCardInfo] = useState(props.data);
+    const [listInfo, setListInfo] = useState(props.data);
 
-    function updateCardInfo(field, value) {
-        setCardInfo({ ...cardInfo, [field]: value });
+    function updateListInfo(field, value) {
+        setListInfo({ ...listInfo, [field]: value });
     }
 
-    function handleUpdateCard(e) {
+    function handleUpdateList(e) {
         e.preventDefault();
-        props.updateCard(cardInfo)
+        props.updateList(listInfo)
             .then(props.modalClear());
+    }
+
+    function handleDeleteList() {
+        props.deleteList(listInfo)
+        props.modalClear();
     }
 
     return (
         <div className="modal_container">
-            <form className="modal_update_card" onSubmit={(e) => handleUpdateCard(e)}>
+            <form className="modal_update_list" onSubmit={(e) => handleUpdateList(e)}>
                 <div className="modal_col">
-                    <h5>Card Info</h5>
+                    <h5>List Title</h5>
                 </div>
                 <div className="modal_col">
-                    <textarea
-                        placeholder="Card title is required"
-                        value={cardInfo.name}
-                        onChange={(e) => updateCardInfo('name', e.target.value)}
+                    <input type="text"
+                        placeholder="List title is required"
+                        value={listInfo.name}
+                        onChange={(e) => updateListInfo('name', e.target.value)}
                         required
-                    ></textarea>
+                    />
                 </div>
                 <div className="modal_col">
-                    <input type="submit" value="Update Card" />
-                    <span className="deleteCard">Delete Card</span>
+                    <input type="submit" value="Update List" />
+                    <span className="deleteCard" onClick={handleDeleteList}>Delete List</span>
                 </div>
                 <span className="modal_close_btn material-icons" onClick={props.modalClear}>clear</span>
             </form>
@@ -47,8 +52,9 @@ const ModalUpdatList = (props) => {
 
 const mdp = (dispatch) => {
     return {
-        updateCard: (card) => dispatch(updateCard(card)),
-        modalClear: () => dispatch(modalClear())
+        updateList: (card) => dispatch(updateList(card)),
+        modalClear: () => dispatch(modalClear()),
+        deleteList: (list) => dispatch(deleteList(list))
     }
 }
 

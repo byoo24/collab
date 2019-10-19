@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateCard } from '../../../actions/card_actions';
+import { updateCard, deleteCard } from '../../../actions/card_actions';
 import { modalClear } from '../../../actions/modals_action';
 
 
@@ -16,6 +16,11 @@ const ModalUpdatCard = (props) => {
         e.preventDefault();
         props.updateCard(cardInfo)
              .then(props.modalClear());
+    }
+
+    function handleDeleteCard() {
+        props.deleteCard(cardInfo)
+        props.modalClear();
     }
 
     return (
@@ -34,7 +39,7 @@ const ModalUpdatCard = (props) => {
                 </div>
                 <div className="modal_col">
                     <input type="submit" value="Update Card" />
-                    <span className="deleteCard">Delete Card</span>
+                    <span className="deleteCard" onClick={handleDeleteCard}>Delete Card</span>
                 </div>
                 <span className="modal_close_btn material-icons" onClick={props.modalClear}>clear</span>
             </form>
@@ -48,6 +53,7 @@ const ModalUpdatCard = (props) => {
 const mdp = (dispatch) => {
     return {
         updateCard: (card) => dispatch(updateCard(card)),
+        deleteCard: (card) => dispatch(deleteCard(card)),
         modalClear: () => dispatch(modalClear())
     }
 }

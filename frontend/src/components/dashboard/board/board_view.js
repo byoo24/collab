@@ -15,7 +15,7 @@ const Container = styled.div``;
 const BoardView = (props) => {
     const { currentUser, board, lists, allCards } = props;
     const bgColor = board ? board.bgColor : '';
-    const updateDebounce = debounce(1000);
+    const updateDebounce = debounce(500);
 
     // Board
     const [boardInfo, setBoardInfo] = useState(board);
@@ -68,13 +68,14 @@ const BoardView = (props) => {
 
     // Takes in an array of Lists to update Cards
     // because if two or more Lists need to be updated simultaneously
-    function updateLists(arrLists) {
+    function updateLists(data) {
         const copyAllLists = Object.assign({}, allLists);
-        arrLists.forEach(list => {
+        data.listsArr.forEach(list => {
             copyAllLists[list.id] = list;
         });
         setAllLists(copyAllLists);
-        updateDebounce('lists', arrLists);
+        // props.updateListsArr(data);
+        updateDebounce('lists', data);
     }
 
 
@@ -128,29 +129,37 @@ const BoardView = (props) => {
         }
 
         // Dragged item is a Card
-        const homeList = allLists[source.droppableId];
-        const foreignList = allLists[destination.droppableId];
+        const startList = allLists[source.droppableId];
+        const endList = allLists[destination.droppableId];
 
         // Card is in the same List
-        if (homeList === foreignList) {
-            const newCardOrder = Array.from(homeList.cardIds);
+        if (startList === endList) {
+            const newCardOrder = Array.from(startList.cardIds);
             newCardOrder.splice(source.index, 1);
             newCardOrder.splice(destination.index, 0, draggableId);
 
-            homeList.cardIds = newCardOrder;
-            updateLists([homeList]);
+            startList.cardIds = newCardOrder;
+            updateLists({
+                cardId: draggableId,
+                newListId: destination.droppableId,
+                listsArr: [startList]
+            });
             return;
         } else {
             // Card is in a different List
-            const newHomeCardOrder = Array.from(homeList.cardIds);
-            newHomeCardOrder.splice(source.index, 1);
+            const newStartCardOrder = Array.from(startList.cardIds);
+            newStartCardOrder.splice(source.index, 1);
 
-            const newForeignCardOrder = Array.from(foreignList.cardIds);
-            newForeignCardOrder.splice(destination.index, 0, draggableId);
+            const newEndCardOrder = Array.from(endList.cardIds);
+            newEndCardOrder.splice(destination.index, 0, draggableId);
 
-            homeList.cardIds = newHomeCardOrder;
-            foreignList.cardIds = newForeignCardOrder;
-            updateLists([homeList, foreignList]);
+            startList.cardIds = newStartCardOrder;
+            endList.cardIds = newEndCardOrder;
+            updateLists({
+                cardId: draggableId,
+                newListId: destination.droppableId,
+                listsArr: [startList, endList]
+            });
             return;
         }
     }

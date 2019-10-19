@@ -12,8 +12,8 @@ export const updateList = (list) => {
 }
 
 
-export const updateListsArr = (listsArr) => {
-    return axios.put('/api/v1/lists', listsArr);
+export const updateListsArr = (listsData) => {
+    return axios.put('/api/v1/lists', listsData);
 }
 
 
@@ -39,3 +39,24 @@ export const updateListsArr = (listsArr) => {
 //         }
 //     });
 // }
+
+
+
+export const deleteList = (input) => {
+    const { id } = input;
+
+    return axios({
+        url: '/graphql',
+        method: 'post',
+        data: {
+            query: `
+                mutation {
+                    deleteList(id:"${id}"){
+                        id,
+                        boardId
+                    }
+                }
+            `
+        }
+    })
+}

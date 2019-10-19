@@ -57,8 +57,15 @@ module.exports = (app, db) => {
 
     app.put('/api/v1/lists', async (req, res) => {
 
-        const promises = [];
-        const listsArr = req.body;
+        const lists = [];
+        const { listsArr, cardId, newListId } = req.body;
+
+        const card = await db.card.findByPk(cardId);
+        if( listsArr.length > 1){
+            if (card) {
+                await card.update({ listId: newListId });
+            }
+        }
 
         for (let i = 0; i < listsArr.length; i++) {
             const updateList = listsArr[i];
@@ -67,11 +74,14 @@ module.exports = (app, db) => {
             await db.list.findByPk(listId)
                 .then(list => {
                     list.update(updateList);
-                    promises.push(list);
+                    lists.push(list);
                 })
         }
 
-        return await res.json(promises);
+        return await res.json({
+            card, 
+            lists
+        });
     });
 }
 

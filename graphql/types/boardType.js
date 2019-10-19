@@ -10,8 +10,6 @@ module.exports = `
         userId: ID!
         lists: [List!]!
         listIds: [String!]!
-        createdAt: String
-        updatedAt: String
     }
     input UserBoardIds {
         id: String
@@ -21,7 +19,6 @@ module.exports = `
         board(id: ID!): Board
     }
     type Mutation {
-        createBoard(name: String!, description: String, userId: ID! personalBoardIds: [UserBoardIds]): Board
-        updateBoard(id: ID!, name: String, description: String): Board!
+        deleteBoard(id: ID!): Board
     }
 `

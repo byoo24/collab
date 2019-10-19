@@ -3,6 +3,7 @@ import * as APIUtil from '../util/list_api_util';
 export const RECEIVE_LIST = "RECEIVE_LIST";
 export const RECEIVE_UPDATED_LIST = "RECEIVE_UPDATED_LIST";
 export const RECEIVE_UPDATED_LISTS = "RECEIVE_UPDATED_LISTS";
+export const REMOVE_LIST = "REMOVE_LIST";
 
 
 
@@ -23,10 +24,20 @@ export const receiveUpdatedList = ({ list }) => {
 }
 
 
-export const receiveUpdatedLists = ({ data }) => {
+export const receiveUpdatedLists = ({ card, lists }) => {
     return {
         type: RECEIVE_UPDATED_LISTS,
-        lists: data
+        card,
+        lists
+    }
+}
+
+
+export const removeList = ({ listId, boardId }) => {
+    return {
+        type: REMOVE_LIST,
+        listId,
+        boardId
     }
 }
 
@@ -53,7 +64,6 @@ export const createList = input => dispatch => (
 )
 
 
-
 export const updateList = input => dispatch => (
     APIUtil.updateList(input).then(res => {
         const { data, errors } = res;
@@ -71,18 +81,38 @@ export const updateList = input => dispatch => (
 )
 
 
-export const updateListsArr = arr => dispatch => (
-    APIUtil.updateListsArr(arr).then(res => {
+export const updateListsArr = listsData => dispatch => (
+    APIUtil.updateListsArr(listsData).then(res => {
         const { data, errors } = res;
         
         if (errors) {
             console.log(errors);
         } else {
-
+            const { card, lists } = data;
             dispatch(receiveUpdatedLists({
-                data
+                card,
+                lists
             }))
         }
     })
 );
+
+
+export const deleteList = list => dispatch => {
+    APIUtil.deleteList(list).then(res => {
+        const { data, errors } = res.data;
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            const { deleteList } = data;
+            
+            dispatch(removeList({
+                listId: deleteList.id,
+                boardId: deleteList.boardId
+            }));
+        }
+    })
+}
+
 

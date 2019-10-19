@@ -20,7 +20,6 @@ const WebFontConfig = {
         urls: ['https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined']
     }
 };
-
 WebFont.load(WebFontConfig);
 
 
@@ -31,7 +30,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
-    localStorage.removeItem('jwtToken');
+    // localStorage.removeItem('jwtToken');
 
     if (localStorage.jwtToken) {
         setAuthToken(localStorage.jwtToken);

@@ -122,7 +122,8 @@ $bgSize: 100px;
 
 
 
-.modal_update_card {
+.modal_update_card,
+.modal_update_list {
     display: block;
     position: relative;
     width: 23em;
@@ -137,7 +138,8 @@ $bgSize: 100px;
         margin-bottom: 0.5em;
     }
 
-    textarea {
+    textarea,
+    input[type="text"] {
         display: block;
         font-size: 1em;
         padding: 0.35em;

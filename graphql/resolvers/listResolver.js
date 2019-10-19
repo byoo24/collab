@@ -8,43 +8,34 @@ module.exports = {
         list: (parent, args, { db }, info) => db.list.findByPk(id)
     },
     Mutation: {
-        createList: async (parent, args, context, info) => {
+        deleteList: async (parent, args, context, info) => {
             const { db } = context;
-            // listIds: is to keep track of the order of the lists.
-            //      when creating a new list, board needs to be updated
-            const { name, boardId, listIds } = args;
+            const { id } = args;
+            const errors = {};
+            let list, board;
 
-            return db.list.create({
-                name,
-                boardId
-            }).then((list) => {
-                const { dataValues } = list;
-                const listId = dataValues.id;
+            const listRaw = await db.list.findByPk(id);
+            if (listRaw) {
+                list = listRaw.dataValues;
+                const boardRaw = await db.board.findByPk(list.boardId);
+                board = boardRaw.dataValues;
+            } else {
+                errors.list = "List was not found.";
+            }
 
-                // listIds is read only
-                const newList = listIds[0] === "" ? [listId] : listIds.concat(listId);
-
-                db.board.update({
-                    listIds: newList
-                }, {
-                    where: {id: boardId}
-                });
-
-                return list;
-            });
-        },
-        updateList: (parent, args, context, info) => {
-            const { db } = context;
-            const { id, name } = args;
-
-            db.list.update({
-                name: name
-            },
-            {
-                where: {
-                    id: id
+            if (board) {
+                const listIndex = board.listIds.indexOf(list.id);
+                if(listIndex > -1) {
+                    board.listIds.splice(listIndex, 1);
+                    await db.board.update(board, {where: {id: board.id}});
                 }
-            });
+                await db.list.destroy({where: {id: list.id}});
+                return list;
+            } else {
+                errors.board = "Board was not found.";
+            }
+
+            return errors;
         }
     }
 };

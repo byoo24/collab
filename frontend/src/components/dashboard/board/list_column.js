@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { createCard } from '../../../actions/card_actions';
 import { updateList } from '../../../actions/list_actions';
+import { modalUpdateList } from '../../../actions/modals_action';
 import CardRows from './card_rows';
 
 const Container = styled.div``;
@@ -77,28 +78,10 @@ const ListColumn = (props) => {
                 <ListContent className="list_content">
                     
                     <Title className="list_title" {...provided.dragHandleProps}>
-                        {
-                            !showListNameForm ? (
-                                <>
-                                <span className="list_title-text">
-                                    {listInfo.name}
-                                </span>
-                                <span className="list_title-edit material-icons" onClick={() => setShowListNameForm(true)}>edit</span>
-                                </>
-                            ) : (
-                                <>
-                                <form className="list_title-form" onSubmit={(e) => handleListUpdate(e)}>
-                                    <input type="text"
-                                            placeholder="Title can't be blank"
-                                            value={listInfo.name}
-                                            onChange={(e) => updateListInfo('name', e.target.value)} 
-                                            required />
-                                </form>
-                                <span className="list_title-edit material-icons" onClick={() => setShowListNameForm(false)}>clear</span>
-                                </>
-                            )
-                        }
-                            
+                        <span className="list_title-text">
+                            {listInfo.name}
+                        </span>
+                        <span className="list_title-edit material-icons" onClick={() => props.modalUpdateList(list)}>edit</span>   
                     </Title>
 
                     <Droppable droppableId={list.id} type="cards">
@@ -148,7 +131,8 @@ const ListColumn = (props) => {
 const mdp = (dispatch) => {
     return {
         createCard: (card) => dispatch(createCard(card)),
-        updateList: (list) => dispatch(updateList(list))
+        updateList: (list) => dispatch(updateList(list)),
+        modalUpdateList: (data) => dispatch(modalUpdateList(data))
     }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { createBoard } from '../../../actions/board_actions';
+import { createBoard, deleteBoard } from '../../../actions/board_actions';
 import { updateSession } from '../../../actions/session_actions';
 import { modalNewBoard } from '../../../actions/modals_action';
 
@@ -32,9 +32,9 @@ const BoardContext = (props) => {
 
 
                 <PersonalBoards className="boards_index-drop row">
-                    {personalBoards.map((boardId, idx) => {
+                    {personalBoards.map((boardId) => {
                         const board = boards[boardId];
-                        return <BoardsIndexItem key={board.id} board={board} index={idx} />;
+                        return <BoardsIndexItem key={board.id} board={board} deleteBoard={props.deleteBoard} />;
                     })}
                     <div className="boards_index-add col-6-gutter col-md-4-gutter col-lg-3-gutter bg-gray" onClick={props.modalNewBoard}>
                         <span className="boards_index-link">Create new board</span>
@@ -66,6 +66,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         createBoard: (board) => dispatch(createBoard(board)),
+        deleteBoard: (board) => dispatch(deleteBoard(board)),
         updateSession: (user) => dispatch(updateSession(user)),
         modalNewBoard: () => dispatch(modalNewBoard())
     }

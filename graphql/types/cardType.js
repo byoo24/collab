@@ -13,7 +13,6 @@ module.exports = `
         card(id: ID!): Card
     }
     type Mutation {
-        createCard(name: String!, description: String, listId: ID!): Card!
-        updateCard(id: ID!, name: String, description: String): Card!
+        deleteCard(id: ID!): Card
     }
 `

@@ -5,7 +5,8 @@ import {
 } from '../../actions/session_actions';
 
 import {
-    RECEIVE_BOARD
+    RECEIVE_BOARD,
+    REMOVE_BOARD
 } from '../../actions/board_actions';
 
 
@@ -17,6 +18,13 @@ const sessionReducer = (state = {}, action) => {
         case RECEIVE_SESSION:
         case RECEIVE_SESSION_DATA:
             return Object.assign({}, state, action.user);
+        case REMOVE_BOARD:
+            const newUser = Object.assign({}, state);
+            const boardIndex = newUser.personalBoardIds.indexOf(action.boardId);
+            if (boardIndex > -1){
+                newUser.personalBoardIds.splice(boardIndex, 1);
+            }
+            return newUser;
         case SESSION_LOGOUT:
             return {};
         default:

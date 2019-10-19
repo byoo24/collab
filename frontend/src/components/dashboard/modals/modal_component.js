@@ -2,6 +2,7 @@ import React from 'react';
 
 import NewBoard from './modal_new_board';
 import UpdateCard from './modal_update_card';
+import UpdateList from './modal_update_list';
 
 const modalComponent = (props) => {
     let { modal } = props;
@@ -13,6 +14,9 @@ const modalComponent = (props) => {
             break;
         case 'MODAL_UPDATE_CARD':
             showComponent = <UpdateCard data={modal.data} />;
+            break;
+        case 'MODAL_UPDATE_LIST':
+            showComponent = <UpdateList data={modal.data} />;
             break;
         default:
             showComponent = null;

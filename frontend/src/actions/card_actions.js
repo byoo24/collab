@@ -2,6 +2,7 @@ import * as APIUtil from '../util/card_api_util';
 
 
 export const RECEIVE_CARD = "RECEIVE_CARD";
+export const REMOVE_CARD = "REMOVE_CARD";
 export const RECEIVE_UPDATED_CARD = "RECEIVE_UPDATED_CARD";
 
 
@@ -23,6 +24,14 @@ export const receiveUpdatedCard = ({ card }) => {
 }
 
 
+export const removeCard = ({ cardId, listId }) => {
+    return {
+        type: REMOVE_CARD,
+        cardId,
+        listId
+    }
+}
+
 
 
 
@@ -36,7 +45,7 @@ export const createCard = input => dispatch => (
         } else {
             const { card, list } = data;
             
-            dispatch(receiveCard({
+            return dispatch(receiveCard({
                 card,
                 list
             }));
@@ -55,7 +64,7 @@ export const updateCard = input => dispatch => (
         } else {
             const { card } = data;
 
-            dispatch(receiveUpdatedCard({
+            return dispatch(receiveUpdatedCard({
                 card
             }));
         }
@@ -64,4 +73,20 @@ export const updateCard = input => dispatch => (
 
 
 
+export const deleteCard = card => dispatch => {
+    APIUtil.deleteCard(card).then(res => {
+        const { data, errors } = res.data;
+        
+        if (errors) {
+            console.log(errors);
+        } else {
+            const { deleteCard } = data;
+            debugger
+            return dispatch(removeCard({
+                cardId: deleteCard.id,
+                listId: deleteCard.listId
+            }))
+        }
+    })
+}
 

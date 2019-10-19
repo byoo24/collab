@@ -7,50 +7,34 @@ module.exports = {
         card: (parent, args, { db }, info) => db.card.findByPk(id)
     },
     Mutation: {
-        createCard: (parent, args, context, info) => {
+        deleteCard: async (parent, args, context, info) => {
             const { db } = context;
-            // cardIds: is to keep track of the order of the cards.
-            //      when creating a new card, list needs to be updated
-            const { name, description, listId, cardIds } = args;
+            const { id } = args;
+            const errors = {};
+            let card, list;
 
-            console.log("====================");
-            console.log(args);
-            console.log("====================");
+            const cardRaw = await db.card.findByPk(id);
+            if(cardRaw) {
+                card = cardRaw.dataValues;
+                const listRaw = await db.list.findByPk(card.listId);
+                list = listRaw.dataValues;
+            } else {
+                errors.card = "Card was not found.";
+            }
 
-
-            return db.card.create({
-                name,
-                description,
-                listId
-            }).then((card) => {
-                const { dataValues } = card;
-                const cardId = dataValues.id;
-
-                // cardIds is read only
-                const newCards = cardIds[0] == "" ? [cardId] : cardIds.concat(cardId);
-
-                db.list.update({
-                    cardIds: newCards
-                }, {
-                    where: {id: listId}
-                });
-
+            if (list) {
+                const cardIndex = list.cardIds.indexOf(card.id);
+                if(cardIndex > -1) {
+                    list.cardIds.splice(cardIndex, 1);
+                    await db.list.update(list, { where: { id: list.id}});
+                }
+                await db.card.destroy({where: {id: card.id}});
                 return card;
-            });
-        },
-        updateCard: (parent, args, context, info) => {
-            const { db } = context;
-            const { id, name } = args;
+            } else {
+                errors.board = "Board was not found";
+            }
 
-            db.card.update({
-                name: name,
-                description: description
-            },
-                {
-                    where: {
-                        id: id
-                    }
-                });
+            return errors;
         }
     }
 };

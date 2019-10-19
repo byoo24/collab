@@ -15,7 +15,6 @@ module.exports = `
         list(id: ID!): List
     }
     type Mutation {
-        createList(name: String!, boardId: ID!, listIds: [String]): List!
-        updateList(id: ID!, name: String): List!
+        deleteList(id: ID!): List
     }
 `

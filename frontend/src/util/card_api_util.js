@@ -40,3 +40,21 @@ export const updateCard = (card) => {
 //     });
 // }
 
+
+export const deleteCard = (input) => {
+    const { id } = input;
+
+    return axios({
+        url: '/graphql',
+        method: 'post',
+        data: {
+            query: `
+                mutation {
+                    deleteCard(id:"${id}"){
+                        id,
+                        listId
+                    }
+                }`
+        }
+    });
+}
