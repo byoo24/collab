@@ -53,15 +53,11 @@ export const getSessionData = (userId) => {
                                 id,
                                 name,
                                 boardId,
-                                createdAt,
-                                updatedAt,
                                 cardIds
                                 cards {
                                     id,
                                     name,
                                     description,
-                                    createdAt,
-                                    updatedAt,
                                     listId
                                 }
                             }
