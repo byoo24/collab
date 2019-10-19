@@ -5,10 +5,11 @@ import Logo from './logo';
 
 import { navIndex, navUser, navCreate, navClear } from '../../actions/nav_actions';
 import { modalNewBoard } from '../../actions/modals_action';
+import { logout } from '../../actions/session_actions';
 
 
 const Navbar = (props) => {
-    const { loggedIn, logout, classValue, navState } = props;
+    const { logout, classValue, navState } = props;
     const boards = props.boards || {};
     const extraStyle = classValue ? classValue : '';
     const [activeSubMenu, setActiveSubMenu] = useState(null);
@@ -75,7 +76,7 @@ const Navbar = (props) => {
     const userMenu = navState === 'NAV_USER' ? (
         <div className="nav_user_menu">
             <h6 className="nav_sub_title">Menu</h6>
-            <div className="nav_sub_link">
+            <div className="nav_sub_link" onClick={logout}>
                 <h6 className="nav_sub_link-title">
                     <span className="nav_sub_link-icon material-icons">meeting_room</span>
                     Logout
@@ -122,7 +123,8 @@ const mdp = (dispatch) => {
         navIndex: () => dispatch(navIndex()),
         navUser: () => dispatch(navUser()),
         navCreate: () => dispatch(navCreate()),
-        navClear: () => dispatch(navClear())
+        navClear: () => dispatch(navClear()),
+        logout: () => dispatch(logout())
     }
 }
 
