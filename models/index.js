@@ -21,7 +21,7 @@ let sequelize;
 
 
 
-if (process.env.HEROKU_POSTGRESQL_RED_URL) {
+if (process.env.HEROKU_POSTGRESQL_RED_URL) { 
     // the application is executed on Heroku ... use the postgres database
     sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_RED_URL, {
         dialect: 'postgres',
