@@ -32,7 +32,6 @@ module.exports = (app, db) => {
                             userInfo.password = hash;
                             db.user.create(userInfo)
                                 .then(user => {
-
                                     return jwtSign(res, user.dataValues);
                                 })
                                 .catch(err => console.log(err));
@@ -46,15 +45,7 @@ module.exports = (app, db) => {
 
 
     app.post('/api/v1/login', (req, res) => {
-        console.log("=====================");
-        console.log("=====================");
-        console.log("=====================");
-        console.log("LOG IN");
-        console.log("=====================");
-        console.log("=====================");
-        console.log("=====================");
-
-
+        
             const { errors, isValid } = validateLoginInput(req.body);
 
             if (!isValid) {
@@ -75,17 +66,7 @@ module.exports = (app, db) => {
                     bcrypt.compare(password, user.password)
                         .then(isMatch => {
                             if (isMatch) {
-
-                                console.log("=====================");
-                                console.log("=====================");
-                                console.log("=====================");
-                                console.log(user);
-                                console.log("=====================");
-                                console.log("=====================");
-                                console.log("=====================");
-
                                 return jwtSign(res, user.dataValues);
-
                             } else {
                                 errors.password = "Incorrect username or password";
                                 return res.status(400).json(errors);
@@ -128,7 +109,8 @@ module.exports = (app, db) => {
 
 const jwtSign = async (res, user) => {
     const payload = {
-        id: user.id
+        id: user.id,
+        username: user.username
     };
 
     jwt.sign(payload, keys.secretOrKey, { expiresIn: 7200 }, (err, token) => {
